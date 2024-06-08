@@ -2,26 +2,44 @@ import { useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  ProfileOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Link, Outlet } from 'react-router-dom';
-import { HomeOutlined } from '@ant-design/icons';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout = () => {
+  const { pathname } = useLocation();
+
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
 
-const iconStyle = { fontSize: '20px'};
+  const iconStyle = { fontSize: '20px' };
+
+  const items = [
+    {
+      label: 'Usuários',
+      icon: <UserOutlined style={iconStyle} />,
+      key: '/usuarios',
+    },
+    {
+      label: 'Categorias',
+      icon: <ProfileOutlined style={iconStyle} />,
+      key: '/categorias',
+    }
+  ];
+
+  const selectedKeys = items
+    .filter(item => pathname.startsWith(item.key))
+    .map(item => item.key);
 
   return (
     <Layout>
@@ -30,30 +48,29 @@ const iconStyle = { fontSize: '20px'};
         collapsible
         collapsed={collapsed}
         onCollapse={toggleCollapsed}
-        width={collapsed ? 110 : 250} // Define a largura do Sider baseado no estado collapsed
-        collapsedWidth={100} // Largura quando o Sider está recolhido
+        width={collapsed ? 110 : 250}
+        collapsedWidth={100}
       >
         <div className="demo-logo-vertical" />
         <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            style={{padding: '85px 8px'}}
-          >
-            <Menu.Item key="1" icon={<HomeOutlined style={iconStyle}/>}>
-              <Link to="/" style={{fontSize: '16px'}}>Início</Link>
+          theme="dark"
+          mode="inline"
+          selectedKeys={selectedKeys}
+          style={{ padding: '85px 14px' }}
+        >
+          {items.map(item => (
+            <Menu.Item key={item.key} icon={item.icon}>
+              <Link to={item.key}>{item.label}</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<UserOutlined style={iconStyle} />}>
-              <Link to="usuarios" style={{fontSize: '16px'}}>Usuários</Link>
-            </Menu.Item>
-          </Menu>
+          ))}
+        </Menu>
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined style={iconStyle} /> : <MenuFoldOutlined style={iconStyle} />}
-            onClick={() => setCollapsed(!collapsed)}
+            onClick={toggleCollapsed}
             style={{
               fontSize: '16px',
               width: 64,
@@ -65,7 +82,7 @@ const iconStyle = { fontSize: '20px'};
           style={{
             margin: '24px 16px',
             padding: 24,
-            height: '90vh',
+            minHeight: '95vh',
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}

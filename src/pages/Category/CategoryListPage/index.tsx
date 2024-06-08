@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { Input, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ButtonComponent from '../../../components/ButtonComponent';
-import UserTable from '../../../components/UserTable';
+import CategoryTable from '../../../components/CategoryTable'
 import api from '../../../api';
-import IUsersProps from '../../../interfaces/IUsersProps';
+import ICategoriesProps from '../../../interfaces/ICategoriesProps';
 
 const { Title } = Typography;
 
-const UserListPage: React.FC = () => {
-  const [users, setUsers] = useState<IUsersProps[]>([]);
+const CategoryListPage: React.FC = () => {
+  const [categories, setCategories] = useState<ICategoriesProps[]>([]);
   const [pagination, setPagination] = useState({
     total: 0,
     page: 1,
@@ -23,15 +23,15 @@ const UserListPage: React.FC = () => {
     setPagination({ ...pagination, page: newPage });
   };
 
-  const getUsers = async (page: number, perPage: number, email = '') => {
+  const getCategories = async (page: number, perPage: number, email = '') => {
     try {
       const response = email
-        ? await api.get(`/users/${email}/email`, { params: { page, perPage } })
-        : await api.get(`/users`, { params: { page, perPage } });
+        ? await api.get(`/categories/${email}/email`, { params: { page, perPage } })
+        : await api.get(`/categories`, { params: { page, perPage } });
 
       const { data, pagination: pages } = response.data;
 
-      setUsers(data);
+      setCategories(data);
       setPagination({
         total: pages.total,
         page: pages.currentPage,
@@ -39,12 +39,12 @@ const UserListPage: React.FC = () => {
         lastPage: pages.lastPage,
       });
     } catch (error) {
-      console.error("Failed to fetch users:", error);
+      console.error("Failed to fetch Categories:", error);
     }
   };
 
   useEffect(() => {
-    getUsers(pagination.page, pagination.perPage, searchValue);
+    getCategories(pagination.page, pagination.perPage, searchValue);
   }, [pagination.page, pagination.perPage, searchValue]);
 
   return (
@@ -58,10 +58,10 @@ const UserListPage: React.FC = () => {
       <Input
         onChange={(e) => setSearchValue(e.target.value)}
         name="search"
-        placeholder="Busque usuário por e-mail..."
+        placeholder="Busque categoria por nome..."
       />
-      <UserTable
-        dataSource={users}
+      <CategoryTable
+        dataSource={categories}
         pagination={{
           total: pagination.total,
           current: pagination.page,
@@ -74,4 +74,5 @@ const UserListPage: React.FC = () => {
   );
 };
 
-export default UserListPage;
+export default CategoryListPage;
+
