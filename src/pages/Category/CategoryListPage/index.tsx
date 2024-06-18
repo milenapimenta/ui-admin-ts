@@ -23,10 +23,10 @@ const CategoryListPage: React.FC = () => {
     setPagination({ ...pagination, page: newPage });
   };
 
-  const getCategories = async (page: number, perPage: number, email = '') => {
+  const getCategories = async (page: number, perPage: number, name = '') => {
     try {
-      const response = email
-        ? await api.get(`/categories/${email}/email`, { params: { page, perPage } })
+      const response = name
+        ? await api.get(`/categories/${name}/name`, { params: { page, perPage } })
         : await api.get(`/categories`, { params: { page, perPage } });
 
       const { data, pagination: pages } = response.data;
@@ -47,12 +47,24 @@ const CategoryListPage: React.FC = () => {
     getCategories(pagination.page, pagination.perPage, searchValue);
   }, [pagination.page, pagination.perPage, searchValue]);
 
+  const handleDelete = async (uuid: string) => {
+    try {
+      const response = await api.delete(`categories/${uuid}`)
+      if (response.status === 200) {
+        const newList = categories.filter((category) => category.uuid !== uuid)
+        setCategories(newList)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '26px' }}>
-        <Title level={3}>Usuários</Title>
-        <Link to="/usuarios/novo">
-          <ButtonComponent icon={<PlusOutlined />} text="Novo Usuário" />
+        <Title level={3}>Categorias</Title>
+        <Link to="/categorias/nova">
+          <ButtonComponent icon={<PlusOutlined />} text="Nova Categoria" />
         </Link>
       </div>
       <Input
@@ -69,6 +81,7 @@ const CategoryListPage: React.FC = () => {
           onChange: handlePageChange,
           showSizeChanger: false,
         }}
+        onDelete={handleDelete}
       />
     </>
   );

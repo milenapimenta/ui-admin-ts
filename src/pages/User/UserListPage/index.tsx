@@ -47,6 +47,18 @@ const UserListPage: React.FC = () => {
     getUsers(pagination.page, pagination.perPage, searchValue);
   }, [pagination.page, pagination.perPage, searchValue]);
 
+  const handleDelete = async (uuid: string) => {
+    try {
+      const response = await api.delete(`users/${uuid}`)
+      if (response.status === 200) {
+        const newList = users.filter((user) => user.uuid !== uuid)
+        setUsers(newList)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '26px' }}>
@@ -69,6 +81,7 @@ const UserListPage: React.FC = () => {
           onChange: handlePageChange,
           showSizeChanger: false,
         }}
+        onDelete={handleDelete}
       />
     </>
   );
