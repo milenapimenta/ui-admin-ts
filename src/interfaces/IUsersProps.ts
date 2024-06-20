@@ -7,6 +7,7 @@ interface IUsersProps {
   lastname: string;
   role: string;
   email: string;
+  password?: string;
   createdAt: string;
   emailVerifiedAt: string | null;
 }

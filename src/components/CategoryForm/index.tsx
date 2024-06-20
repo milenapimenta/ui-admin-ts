@@ -11,16 +11,13 @@ const CategoryForm = () => {
         <div style={{display: 'flex', justifyContent: "space-between"}}>
           <div style={{width: '45%'}}>
             <InputComponent
-              label='Nome'
               name='name'
               required={true}
-              message= 'O campo nome é obrigatorio!'
               placeholder= 'Digite o nome...'
             />
           </div>
           <div style={{width: '45%'}}>
             <InputComponent
-              label='Url'
               name='slug'
               required={false}
               placeholder= 'Digite a url...'
