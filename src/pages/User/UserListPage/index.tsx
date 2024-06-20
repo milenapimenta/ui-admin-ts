@@ -62,7 +62,7 @@ const UserListPage: React.FC = () => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '26px' }}>
-        <Title level={3}>Usuários</Title>
+        <Title level={3}> Lista de Usuários</Title>
         <Link to="/usuarios/novo">
           <ButtonComponent icon={<PlusOutlined />} text="Novo Usuário" />
         </Link>
