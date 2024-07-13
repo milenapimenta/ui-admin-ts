@@ -7,6 +7,7 @@ const ButtonComponent: React.FC<IButtonProps> = ({ icon, text}) => {
   return (
     <Button
       className={styles.btn}
+      shape="rounded"
       type='primary'
       size='large'
       style={{fontWeight: 'medium'}}

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import {
+  DiscordOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ProfileOutlined,
-  UserOutlined,
+  WhatsAppOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -24,12 +25,17 @@ const DefaultLayout = () => {
 
   const items = [
     {
-      label: 'Usuários',
-      icon: <UserOutlined style={iconStyle} />,
+      label: 'WhatsApp',
+      icon: <WhatsAppOutlined style={iconStyle} />,
       key: '/usuarios',
     },
     {
-      label: 'Categorias',
+      label: 'Discord',
+      icon: <DiscordOutlined style={iconStyle} />,
+      key: '/categorias',
+    },
+    {
+      label: 'Telegram',
       icon: <ProfileOutlined style={iconStyle} />,
       key: '/categorias',
     }
@@ -50,15 +56,21 @@ const DefaultLayout = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        onCollapse={toggleCollapsed}
         width={collapsed ? 110 : 250}
         collapsedWidth={100}
+        style={{
+          position: 'fixed',
+          height: '100vh',
+          left: 0,
+          overflow: 'auto'
+        }}
       >
         <div className="demo-logo-vertical" />
         <Menu
           className={styles.menu}
           mode="inline"
           selectedKeys={selectedKeys}
+          defaultOpenKeys={['/usuarios', '/categorias']}
         >
           {items.map(item => (
             <Menu.Item
@@ -71,7 +83,7 @@ const DefaultLayout = () => {
           ))}
         </Menu>
       </Sider>
-      <Layout className={styles.secondaryLayout}>
+      <Layout className={styles.secondaryLayout} style={{ marginLeft: collapsed ? 100 : 250 }}>
         <Header className={styles.header}>
           <Button
             className={styles.btn}

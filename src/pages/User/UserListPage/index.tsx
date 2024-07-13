@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom';
 import { Input, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ButtonComponent from '../../../components/ButtonComponent';
-import UserTable from '../../../components/UserTable';
 import api from '../../../api';
 import IUsersProps from '../../../interfaces/IUsersProps';
 import styles from './styles.module.css';
+import GroupTable from '../../../components/GroupTable';
 
 const { Title } = Typography;
 
 const UserListPage: React.FC = () => {
   const [users, setUsers] = useState<IUsersProps[]>([]);
+  const [groups, setGroups] = useState([]);
   const [pagination, setPagination] = useState({
     total: 0,
     page: 1,
@@ -44,7 +45,22 @@ const UserListPage: React.FC = () => {
     }
   };
 
+  const getGroups = async () => {
+    try {
+      const res = await api.get('/groups?paginated=true');
+      const { data } = res.data;
+
+      setGroups(data)
+
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
+
+    getGroups()
     getUsers(pagination.page, pagination.perPage, searchValue);
   }, [pagination.page, pagination.perPage, searchValue]);
 
@@ -63,7 +79,7 @@ const UserListPage: React.FC = () => {
   return (
     <>
       <div className={styles.container}>
-        <Title level={3}> Lista de Usuários</Title>
+        <Title level={3}>Lista de Grupos</Title>
         <Link to="/usuarios/novo">
           <ButtonComponent icon={<PlusOutlined />} text="Novo Usuário" />
         </Link>
@@ -74,8 +90,8 @@ const UserListPage: React.FC = () => {
         name="search"
         placeholder="Busque usuário por e-mail..."
       />
-      <UserTable
-        dataSource={users}
+      <GroupTable
+        dataSource={groups}
         pagination={{
           total: pagination.total,
           current: pagination.page,

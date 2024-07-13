@@ -1,23 +1,27 @@
 import api from "../api";
-import IUsersProps from '../interfaces/IUsersProps';
+// import IUsersProps from '../interfaces/IUsersProps';
 
 const getUsers = async () => {
   try {
-    const { data } = await api.get('/users');
-    const users = data.data;
+    // const { data } = await api.get('/groups');
+    // const users = data.data;
 
-    const transformedUsers = users.map((user: IUsersProps, index: number) => {
+    const data = await api.get('/groups')
 
-      const role = user.role === 'CLIENT' ? 'CLIENTE' : 'ADMIN';
+    console.log(data)
 
-      return {
-        ...user,
-        role: role,
-        key: index,
-      };
-    });
+    // const transformedUsers = users.map((user: IUsersProps, index: number) => {
 
-    return transformedUsers;
+    //   const role = user.role === 'CLIENT' ? 'CLIENTE' : 'ADMIN';
+
+    //   return {
+    //     ...user,
+    //     role: role,
+    //     key: index,
+    //   };
+    // });
+
+    // return transformedUsers;
 
   } catch (error) {
     console.log(error);
