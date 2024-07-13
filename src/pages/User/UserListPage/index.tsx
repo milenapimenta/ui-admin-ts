@@ -6,6 +6,7 @@ import ButtonComponent from '../../../components/ButtonComponent';
 import UserTable from '../../../components/UserTable';
 import api from '../../../api';
 import IUsersProps from '../../../interfaces/IUsersProps';
+import styles from './styles.module.css';
 
 const { Title } = Typography;
 
@@ -61,13 +62,14 @@ const UserListPage: React.FC = () => {
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '26px' }}>
+      <div className={styles.container}>
         <Title level={3}> Lista de Usuários</Title>
         <Link to="/usuarios/novo">
           <ButtonComponent icon={<PlusOutlined />} text="Novo Usuário" />
         </Link>
       </div>
       <Input
+        size='large'
         onChange={(e) => setSearchValue(e.target.value)}
         name="search"
         placeholder="Busque usuário por e-mail..."

@@ -1,3 +1,21 @@
 body {
   margin: 0;
 }
+
+h1, h2, h3, h4, h5, h6, p, span, th, tr {
+  color: #f0f2fa !important;
+}
+
+.ant-empty-description {
+  color: #f0f2fa !important;
+}
+
+input {
+  background-color:  #2b2c30 !important;
+  border-color: #424347 !important;
+}
+
+input::placeholder {
+  color:#bcbcbc !important;
+}
+

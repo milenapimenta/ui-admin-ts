@@ -5,8 +5,9 @@ import {
   ProfileOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+import { Button, Layout, Menu } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import styles from './styles.module.css';
 
 const { Header, Sider, Content } = Layout;
 
@@ -14,9 +15,6 @@ const DefaultLayout = () => {
   const { pathname } = useLocation();
 
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -41,9 +39,14 @@ const DefaultLayout = () => {
     .filter(item => pathname.startsWith(item.key))
     .map(item => item.key);
 
+  const getIsActivePathname = (activePathname: string) => {
+    return pathname === activePathname || pathname.startsWith(activePathname + "/");
+  }
+
   return (
-    <Layout>
+    <Layout className={styles.layout}>
       <Sider
+        className={styles.sider}
         trigger={null}
         collapsible
         collapsed={collapsed}
@@ -53,39 +56,32 @@ const DefaultLayout = () => {
       >
         <div className="demo-logo-vertical" />
         <Menu
-          theme="dark"
+          className={styles.menu}
           mode="inline"
           selectedKeys={selectedKeys}
-          style={{ padding: '85px 14px' }}
         >
           {items.map(item => (
-            <Menu.Item key={item.key} icon={item.icon}>
+            <Menu.Item
+              className={`${styles.menuItem} ${getIsActivePathname(item.key) ? styles.menuItemActive : ''}`}
+              key={item.key}
+              icon={item.icon}
+            >
               <Link to={item.key}>{item.label}</Link>
             </Menu.Item>
           ))}
         </Menu>
       </Sider>
-      <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
+      <Layout className={styles.secondaryLayout}>
+        <Header className={styles.header}>
           <Button
+            className={styles.btn}
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined style={iconStyle} /> : <MenuFoldOutlined style={iconStyle} />}
             onClick={toggleCollapsed}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
           />
         </Header>
         <Content
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: '95vh',
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}
+          className={styles.content}
         >
           <Outlet />
         </Content>

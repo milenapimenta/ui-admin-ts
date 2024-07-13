@@ -1,0 +1,8 @@
+.table th, tr, td {
+  background-color: #212121!important;
+  border-color: #424347 !important;
+}
+
+.table {
+  margin-top: 48px;
+}
