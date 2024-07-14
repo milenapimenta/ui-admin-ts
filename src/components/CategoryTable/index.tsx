@@ -17,7 +17,7 @@ const CategoryTable: React.FC<{ dataSource: ICategoriesProps[]; pagination: Tabl
       sortDirections: ['descend'],
     },
     {
-      title: 'Url',
+      title: 'Slug',
       dataIndex: 'slug',
       key: 'slug',
       onFilter: (value, record) => record.slug.indexOf(value as string) === 0,
@@ -25,11 +25,11 @@ const CategoryTable: React.FC<{ dataSource: ICategoriesProps[]; pagination: Tabl
       sortDirections: ['descend'],
     },
     {
-      title: 'Visualizações',
-      dataIndex: 'views',
-      key: 'views',
-      onFilter: (value, record) => record.views === value,
-      sorter: (a, b) => a.views - b.views,
+      title: 'Total de grupos',
+      dataIndex: 'groups_count',
+      key: 'groups_count',
+      onFilter: (value, record) => record.groups_count === value,
+      sorter: (a, b) => a.groups_count - b.groups_count,
       sortDirections: ['descend'],
     },
     {

@@ -80,15 +80,15 @@ const UserListPage: React.FC = () => {
     <>
       <div className={styles.container}>
         <Title level={3}>Lista de Grupos</Title>
-        <Link to="/usuarios/novo">
-          <ButtonComponent icon={<PlusOutlined />} text="Novo Usuário" />
+        <Link to="/whatsapp/grupos/novo">
+          <ButtonComponent icon={<PlusOutlined />} text="Novo Grupo" />
         </Link>
       </div>
       <Input
         size='large'
         onChange={(e) => setSearchValue(e.target.value)}
         name="search"
-        placeholder="Busque usuário por e-mail..."
+        placeholder="Busque grupo por X..."
       />
       <GroupTable
         dataSource={groups}

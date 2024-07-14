@@ -68,6 +68,36 @@ const GroupTable: React.FC<{ dataSource: IUsersProps[]; pagination: TableProps<I
         return false;
       },
       filters: [
+        { text: 'Abertos', value: 'open' },
+        { text: 'Fechados', value: 'closed' },
+      ],
+      render: (is_open) => {
+        const tagColor = is_open ? 'green' : 'gray';
+        const bgColor = is_open === false ? '#424347' : 'green';
+        const borderColor = is_open === false ? '#424347' : 'green';
+        const tagText = is_open ? 'SIM' : 'NÃO';
+        return <Tag
+                  style={{backgroundColor: bgColor, borderColor: borderColor, fontWeight: 'bold'}}
+                  color={tagColor}
+                >
+                  {tagText}
+                </Tag>;
+      },
+    },
+    {
+      title: 'Está ativo?',
+      dataIndex: 'is_open',
+      key: 'is_open', // Chave única
+      onFilter: (value, record) => {
+        const { is_open } = record;
+        if (value === true) {
+          return is_open !== false;
+        } else if (value === false) {
+          return is_open ===  true;
+        }
+        return false;
+      },
+      filters: [
         { text: 'Abertos', value: 'is_open' },
         { text: 'Fechados', value: 'isnt_open' },
       ],

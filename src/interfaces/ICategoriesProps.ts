@@ -3,7 +3,7 @@ interface ICategoriesProps {
   uuid: string;
   name: string;
   slug: string;
-  views: number;
+  groups_count: number;
   createdAt: string;
 }
 

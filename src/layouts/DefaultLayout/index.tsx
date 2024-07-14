@@ -27,27 +27,61 @@ const DefaultLayout = () => {
     {
       label: 'WhatsApp',
       icon: <WhatsAppOutlined style={iconStyle} />,
-      key: '/usuarios',
+      key: '/whatsapp',
+      submenus: [
+        {
+          label: 'Grupos',
+          key: '/whatsapp/grupos',
+        },
+        {
+          label: 'Categorias',
+          key: '/whatsapp/categorias',
+        },
+      ],
     },
     {
       label: 'Discord',
       icon: <DiscordOutlined style={iconStyle} />,
-      key: '/categorias',
+      key: '/discord',
+      submenus: [
+        {
+          label: 'Grupos',
+          key: '/discord/grupos',
+        },
+        {
+          label: 'Categorias',
+          key: '/discord/categorias',
+        },
+      ],
     },
     {
       label: 'Telegram',
       icon: <ProfileOutlined style={iconStyle} />,
-      key: '/categorias',
-    }
+      key: '/telegram',
+      submenus: [
+        {
+          label: 'Grupos',
+          key: '/telegram/grupos',
+        },
+        {
+          label: 'Categorias',
+          key: '/telegram/categorias',
+        },
+      ],
+    },
   ];
 
   const selectedKeys = items
     .filter(item => pathname.startsWith(item.key))
     .map(item => item.key);
 
+  const openKeys = items
+    .filter(item => item.submenus.some(submenu => pathname.startsWith(submenu.key)))
+    .map(item => item.key);
+
   const getIsActivePathname = (activePathname: string) => {
-    return pathname === activePathname || pathname.startsWith(activePathname + "/");
-  }
+    return pathname === activePathname || pathname.startsWith(activePathname + '/');
+  };
 
   return (
     <Layout className={styles.layout}>
@@ -62,7 +96,7 @@ const DefaultLayout = () => {
           position: 'fixed',
           height: '100vh',
           left: 0,
-          overflow: 'auto'
+          overflow: 'auto',
         }}
       >
         <div className="demo-logo-vertical" />
@@ -70,16 +104,27 @@ const DefaultLayout = () => {
           className={styles.menu}
           mode="inline"
           selectedKeys={selectedKeys}
-          defaultOpenKeys={['/usuarios', '/categorias']}
+          defaultOpenKeys={openKeys}
         >
           {items.map(item => (
-            <Menu.Item
-              className={`${styles.menuItem} ${getIsActivePathname(item.key) ? styles.menuItemActive : ''}`}
+            <Menu.SubMenu
               key={item.key}
-              icon={item.icon}
+              title={
+                <span>
+                  {item.icon}
+                  <span>{item.label}</span>
+                </span>
+              }
             >
-              <Link to={item.key}>{item.label}</Link>
-            </Menu.Item>
+              {item.submenus.map(submenu => (
+                <Menu.Item
+                  key={submenu.key}
+                  className={`${getIsActivePathname(submenu.key) ? styles.menuItemActive : ''}`}
+                >
+                  <Link to={submenu.key}>{submenu.label}</Link>
+                </Menu.Item>
+              ))}
+            </Menu.SubMenu>
           ))}
         </Menu>
       </Sider>
@@ -92,9 +137,7 @@ const DefaultLayout = () => {
             onClick={toggleCollapsed}
           />
         </Header>
-        <Content
-          className={styles.content}
-        >
+        <Content className={styles.content}>
           <Outlet />
         </Content>
       </Layout>

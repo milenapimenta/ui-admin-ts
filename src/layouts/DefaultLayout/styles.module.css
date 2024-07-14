@@ -34,13 +34,13 @@
 }
 
 .content {
-  background-color: #212121;
+  background-color: #212121 !important;
   margin: 0px 16px;
   padding: 0px 24px;
-  min-height: 280px;
+  height: 100vh !important;
   overflow: initial;
 }
 
 .secondaryLayout {
-  background-color: #212121;
+  background-color: #212121 !important;
 }

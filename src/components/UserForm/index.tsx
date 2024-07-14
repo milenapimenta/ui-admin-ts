@@ -67,8 +67,6 @@ const UserForm: React.FC<UserFormProps> = ({ handleInputChange, onSubmit, initia
               value={initialValues?.email}
             />
           </Form.Item>
-
-
           <Form.Item
             label="Senha"
             name="password"

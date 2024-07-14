@@ -23,28 +23,40 @@ const CategoryListPage: React.FC = () => {
     setPagination({ ...pagination, page: newPage });
   };
 
-  const getCategories = async (page: number, perPage: number, name = '') => {
+  // const getCategories = async (page: number, perPage: number, name = '') => {
+  //   try {
+  //     const response = name
+  //       ? await api.get(`/categories/${name}/name`, { params: { page, perPage } })
+  //       : await api.get(`/categories`, { params: { page, perPage } });
+
+  //     const { data, pagination: pages } = response.data;
+
+  //     setCategories(data);
+  //     setPagination({
+  //       total: pages.total,
+  //       page: pages.currentPage,
+  //       perPage: pages.perPage,
+  //       lastPage: pages.lastPage,
+  //     });
+  //   } catch (error) {
+  //     console.error("Failed to fetch Categories:", error);
+  //   }
+  // };
+
+
+  const categoriesList = async () => {
     try {
-      const response = name
-        ? await api.get(`/categories/${name}/name`, { params: { page, perPage } })
-        : await api.get(`/categories`, { params: { page, perPage } });
-
-      const { data, pagination: pages } = response.data;
-
-      setCategories(data);
-      setPagination({
-        total: pages.total,
-        page: pages.currentPage,
-        perPage: pages.perPage,
-        lastPage: pages.lastPage,
-      });
+      const res = await api.get('/categories/whatsapp/trending')
+      console.log(res.data)
+      setCategories(res.data)
     } catch (error) {
-      console.error("Failed to fetch Categories:", error);
+      console.log(error)
     }
-  };
+  }
 
   useEffect(() => {
-    getCategories(pagination.page, pagination.perPage, searchValue);
+    categoriesList()
+    // getCategories(pagination.page, pagination.perPage, searchValue);
   }, [pagination.page, pagination.perPage, searchValue]);
 
   const handleDelete = async (uuid: string) => {
