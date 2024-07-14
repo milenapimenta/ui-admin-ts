@@ -104,7 +104,7 @@ const DefaultLayout = () => {
           className={styles.menu}
           mode="inline"
           selectedKeys={selectedKeys}
-          defaultOpenKeys={openKeys}
+          defaultOpenKeys={['/usuarios', '/categorias']}
         >
           {items.map(item => (
             <Menu.SubMenu
