@@ -24,3 +24,6 @@ input::placeholder {
   padding: 0 !important;
 }
 
+.ant-menu-submenu-arrow {
+  color: white !important; /* Change arrow color to white */
+}

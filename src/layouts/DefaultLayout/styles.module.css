@@ -2,9 +2,16 @@
   background-color: #171717 !important;
 }
 
+.logo {
+  padding: 0px 24px;
+  margin-top: 14px;
+  margin-bottom: 40px !important;
+  text-align: center;
+}
+
 .menu {
   background-color:#171717;
-  padding: 85px 14px;
+  padding: 0px;
 }
 
 .header {
@@ -14,12 +21,17 @@
 
 .sider {
   background-color:#171717 !important;
+  position: fixed !important;
+  height: 100vh !important;
+  left: 0 !important;
+  overflow: auto !important;
 }
 
 .menuItem {
   background-color:#171717 !important;
   color: #f0f2fa !important;
-  text-align: center;
+  text-align: start;
+  padding-left: 54px;
 }
 
 .menuItem:hover {
@@ -29,7 +41,8 @@
 .menuItemActive {
   background-color: #212529 !important;
   font-weight: bold;
-  text-align: center;
+  text-align: start;
+  padding-left: 54px;
 }
 
 .btn {

@@ -9,7 +9,7 @@ import ICategoriesProps from '../../../../interfaces/ICategoriesProps';
 
 const { Title } = Typography;
 
-const CategoryListPage: React.FC = () => {
+const TCategoryListPage: React.FC = () => {
   const [categories, setCategories] = useState<ICategoriesProps[]>([]);
   const [pagination, setPagination] = useState({
     total: 0,
@@ -46,7 +46,7 @@ const CategoryListPage: React.FC = () => {
 
   const categoriesList = async () => {
     try {
-      const res = await api.get('/categories/whatsapp/trending')
+      const res = await api.get('/categories/telegram/trending')
       console.log(res.data)
       setCategories(res.data)
     } catch (error) {
@@ -99,5 +99,5 @@ const CategoryListPage: React.FC = () => {
   );
 };
 
-export default CategoryListPage;
+export default TCategoryListPage;
 

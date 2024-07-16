@@ -10,7 +10,7 @@ type FieldType = {
   slug: string;
 };
 
-const NewCategoryPage = () => {
+const TNewCategoryPage = () => {
   const { id } = useParams<{ id: string }>();
   const { Title } = Typography;
 
@@ -75,4 +75,4 @@ const NewCategoryPage = () => {
   );
 };
 
-export default NewCategoryPage;
+export default TNewCategoryPage;

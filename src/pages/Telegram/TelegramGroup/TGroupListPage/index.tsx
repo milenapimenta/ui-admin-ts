@@ -9,7 +9,7 @@ import GroupTable from '../../../../components/GroupTable';
 
 const { Title } = Typography;
 
-const UserListPage: React.FC = () => {
+const TGroupListPage: React.FC = () => {
   const [groups, setGroups] = useState<any>([]);
   const [pagination, setPagination] = useState({
     total: 0,
@@ -36,7 +36,7 @@ const UserListPage: React.FC = () => {
         lastPage: pages.lastPage,
       });
     } catch (error) {
-      console.error("Failed to fetch users:", error);
+      console.error("Failed to fetch groups:", error);
     }
   };
   useEffect(() => {
@@ -84,4 +84,4 @@ const UserListPage: React.FC = () => {
   );
 };
 
-export default UserListPage;
+export default TGroupListPage;

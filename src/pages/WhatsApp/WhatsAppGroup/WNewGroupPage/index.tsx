@@ -11,7 +11,7 @@ type FieldType = {
   description: string;
 };
 
-const NewGroupPage = () => {
+const WNewGroupPage = () => {
   const { id } = useParams<{ id: string }>();
   const { Title } = Typography;
 
@@ -76,4 +76,4 @@ const NewGroupPage = () => {
   );
 };
 
-export default NewGroupPage;
+export default WNewGroupPage;
