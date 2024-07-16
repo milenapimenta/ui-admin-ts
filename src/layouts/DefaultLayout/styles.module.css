@@ -19,11 +19,17 @@
 .menuItem {
   background-color:#171717 !important;
   color: #f0f2fa !important;
+  text-align: center;
+}
+
+.menuItem:hover {
+  background-color: #212121 !important;
 }
 
 .menuItemActive {
   background-color: #212529 !important;
   font-weight: bold;
+  text-align: center;
 }
 
 .btn {
@@ -43,4 +49,8 @@
 
 .secondaryLayout {
   background-color: #212121 !important;
+}
+
+.icon {
+  font-size: 20px !important;
 }

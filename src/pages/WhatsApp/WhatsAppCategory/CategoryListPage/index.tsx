@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Input, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import ButtonComponent from '../../../components/ButtonComponent';
-import CategoryTable from '../../../components/CategoryTable'
-import api from '../../../api';
-import ICategoriesProps from '../../../interfaces/ICategoriesProps';
+import ButtonComponent from '../../../../components/ButtonComponent';
+import CategoryTable from '../../../../components/CategoryTable'
+import api from '../../../../api';
+import ICategoriesProps from '../../../../interfaces/ICategoriesProps';
 
 const { Title } = Typography;
 
@@ -59,11 +59,11 @@ const CategoryListPage: React.FC = () => {
     // getCategories(pagination.page, pagination.perPage, searchValue);
   }, [pagination.page, pagination.perPage, searchValue]);
 
-  const handleDelete = async (uuid: string) => {
+  const handleDelete = async (id: string) => {
     try {
-      const response = await api.delete(`categories/${uuid}`)
+      const response = await api.delete(`categories/${id}`)
       if (response.status === 200) {
-        const newList = categories.filter((category) => category.uuid !== uuid)
+        const newList = categories.filter((category) => category.id !== id)
         setCategories(newList)
       }
     } catch (error) {
@@ -75,7 +75,7 @@ const CategoryListPage: React.FC = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '26px' }}>
         <Title level={3}>Categorias</Title>
-        <Link to="/categorias/nova">
+        <Link to="nova">
           <ButtonComponent icon={<PlusOutlined />} text="Nova Categoria" />
         </Link>
       </div>

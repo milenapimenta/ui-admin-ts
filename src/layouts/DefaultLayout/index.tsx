@@ -21,50 +21,99 @@ const DefaultLayout = () => {
     setCollapsed(!collapsed);
   };
 
-  const iconStyle = { fontSize: '20px' };
+  const getIsActivePathname = (activePathname: string) => {
+    return pathname === activePathname || pathname.startsWith(activePathname + '/');
+  };
 
   const items = [
     {
       label: 'WhatsApp',
-      icon: <WhatsAppOutlined style={iconStyle} />,
+      icon: <WhatsAppOutlined className={styles.icon} />,
       key: '/whatsapp',
       submenus: [
         {
-          label: 'Grupos',
+          label:
+          (
+            <div
+              key="/whatsapp/grupos"
+              className={getIsActivePathname('/whatsapp/grupos') ? styles.menuItemActive : styles.menuItem}
+            >
+              <Link to='/whatsapp/grupos'>Grupos</Link>
+            </div>
+          ),
           key: '/whatsapp/grupos',
         },
         {
-          label: 'Categorias',
+          label:
+        (
+          <div
+            key="/whatsapp/categorias"
+            className={getIsActivePathname('/whatsapp/categorias') ? styles.menuItemActive : styles.menuItem}
+          >
+            <Link to='/whatsapp/categorias'>Categorias</Link>
+          </div>
+        ),
           key: '/whatsapp/categorias',
         },
       ],
     },
     {
       label: 'Discord',
-      icon: <DiscordOutlined style={iconStyle} />,
+      icon: <DiscordOutlined className={styles.icon} />,
       key: '/discord',
       submenus: [
         {
-          label: 'Grupos',
+          label:
+          (
+            <div
+              key="/discord/grupos"
+              className={getIsActivePathname('/discord/grupos') ? styles.menuItemActive : styles.menuItem}
+            >
+              <Link to='/discord/grupos'>Grupos</Link>
+            </div>
+          ),
           key: '/discord/grupos',
         },
         {
-          label: 'Categorias',
+          label:
+          (
+            <div
+              key="/discord/categorias"
+              className={getIsActivePathname('/discord/categorias') ? styles.menuItemActive : styles.menuItem}
+            >
+              <Link to='/discord/categorias'>Categorias</Link>
+            </div>
+          ),
           key: '/discord/categorias',
         },
       ],
     },
     {
       label: 'Telegram',
-      icon: <ProfileOutlined style={iconStyle} />,
+      icon: <ProfileOutlined className={styles.icon} />,
       key: '/telegram',
       submenus: [
         {
-          label: 'Grupos',
+          label:
+          (
+            <div
+              key="/telegram/grupos"
+              className={getIsActivePathname('/telegram/grupos') ? styles.menuItemActive : styles.menuItem}
+            >
+              <Link to='/telegram/grupos'>Grupos</Link>
+            </div>
+          ),
           key: '/telegram/grupos',
         },
         {
-          label: 'Categorias',
+          label:  (
+            <div
+              key="/telegram/categorias"
+              className={getIsActivePathname('/telegram/categorias') ? styles.menuItemActive : styles.menuItem}
+            >
+              <Link to='/telegram/categorias'>Categorias</Link>
+            </div>
+          ),
           key: '/telegram/categorias',
         },
       ],
@@ -79,9 +128,18 @@ const DefaultLayout = () => {
     .filter(item => item.submenus.some(submenu => pathname.startsWith(submenu.key)))
     .map(item => item.key);
 
-  const getIsActivePathname = (activePathname: string) => {
-    return pathname === activePathname || pathname.startsWith(activePathname + '/');
+  const generateMenuItems = (items: any) => {
+    return items.map((item: any) => ({
+      ...item,
+      children: item.submenus.map((submenu: any) => ({
+        ...submenu,
+        key: submenu.key.toString(),
+      })),
+      key: item.key.toString(),
+    }));
   };
+
+  const menuItems = generateMenuItems(items);
 
   return (
     <Layout className={styles.layout}>
@@ -104,36 +162,17 @@ const DefaultLayout = () => {
           className={styles.menu}
           mode="inline"
           selectedKeys={selectedKeys}
-          defaultOpenKeys={['/usuarios', '/categorias']}
-        >
-          {items.map(item => (
-            <Menu.SubMenu
-              key={item.key}
-              title={
-                <span>
-                  {item.icon}
-                  <span>{item.label}</span>
-                </span>
-              }
-            >
-              {item.submenus.map(submenu => (
-                <Menu.Item
-                  key={submenu.key}
-                  className={`${getIsActivePathname(submenu.key) ? styles.menuItemActive : ''}`}
-                >
-                  <Link to={submenu.key}>{submenu.label}</Link>
-                </Menu.Item>
-              ))}
-            </Menu.SubMenu>
-          ))}
-        </Menu>
+          defaultSelectedKeys={['/whatsapp/grupos']}
+          defaultOpenKeys={openKeys}
+          items={menuItems}
+        />
       </Sider>
       <Layout className={styles.secondaryLayout} style={{ marginLeft: collapsed ? 100 : 250 }}>
         <Header className={styles.header}>
           <Button
             className={styles.btn}
             type="text"
-            icon={collapsed ? <MenuUnfoldOutlined style={iconStyle} /> : <MenuFoldOutlined style={iconStyle} />}
+            icon={collapsed ? <MenuUnfoldOutlined className={styles.icon} /> : <MenuFoldOutlined className={styles.icon} />}
             onClick={toggleCollapsed}
           />
         </Header>

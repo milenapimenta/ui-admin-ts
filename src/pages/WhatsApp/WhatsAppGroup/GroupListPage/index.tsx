@@ -2,17 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Input, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import ButtonComponent from '../../../components/ButtonComponent';
-import api from '../../../api';
-import IUsersProps from '../../../interfaces/IUsersProps';
+import ButtonComponent from '../../../../components/ButtonComponent';
+import api from '../../../../api';
 import styles from './styles.module.css';
-import GroupTable from '../../../components/GroupTable';
+import GroupTable from '../../../../components/GroupTable';
 
 const { Title } = Typography;
 
 const UserListPage: React.FC = () => {
-  const [users, setUsers] = useState<IUsersProps[]>([]);
-  const [groups, setGroups] = useState([]);
+  const [groups, setGroups] = useState<any>([]);
   const [pagination, setPagination] = useState({
     total: 0,
     page: 1,
@@ -25,15 +23,12 @@ const UserListPage: React.FC = () => {
     setPagination({ ...pagination, page: newPage });
   };
 
-  const getUsers = async (page: number, perPage: number, email = '') => {
+  const getGroups = async (page: number, perPage: number) => {
     try {
-      const response = email
-        ? await api.get(`/users/${email}/email`, { params: { page, perPage } })
-        : await api.get(`/users`, { params: { page, perPage } });
-
+      const response = await api.get(`/groups?paginated=true`, { params: { page, perPage } });
       const { data, pagination: pages } = response.data;
 
-      setUsers(data);
+      setGroups(data);
       setPagination({
         total: pages.total,
         page: pages.currentPage,
@@ -44,32 +39,16 @@ const UserListPage: React.FC = () => {
       console.error("Failed to fetch users:", error);
     }
   };
-
-  const getGroups = async () => {
-    try {
-      const res = await api.get('/groups?paginated=true');
-      const { data } = res.data;
-
-      setGroups(data)
-
-      console.log(res)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   useEffect(() => {
-
-    getGroups()
-    getUsers(pagination.page, pagination.perPage, searchValue);
+    getGroups(pagination.page, pagination.perPage);
   }, [pagination.page, pagination.perPage, searchValue]);
 
   const handleDelete = async (uuid: string) => {
     try {
       const response = await api.delete(`users/${uuid}`)
       if (response.status === 200) {
-        const newList = users.filter((user) => user.uuid !== uuid)
-        setUsers(newList)
+        const newList = groups.filter((group: any) => group.uuid !== uuid)
+        setGroups(newList)
       }
     } catch (error) {
       console.log(error)

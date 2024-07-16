@@ -1,0 +1,7 @@
+.trashIcon {
+  color: #BD3E33 !important;
+}
+
+.trashIcon, .icon {
+  font-size: 20px;
+}

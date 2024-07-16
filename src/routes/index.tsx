@@ -1,27 +1,29 @@
 import { Route, Routes } from "react-router-dom";
 import DefaultLayout from "../layouts/DefaultLayout";
-import GroupListPage from "../pages/Group/GroupListPage";
-import NewGroupPage from "../pages/Group/NewGroupPage";
-import CategoryListPage from "../pages/Category/CategoryListPage";
-import NewCategoryPage from "../pages/Category/NewCategoryPage";
+import GroupListPage from "../pages/WhatsApp/WhatsAppGroup/GroupListPage";
+import NewGroupPage from "../pages/WhatsApp/WhatsAppGroup/NewGroupPage";
+import CategoryListPage from "../pages/WhatsApp/WhatsAppCategory/CategoryListPage";
+import NewCategoryPage from "../pages/WhatsApp/WhatsAppCategory/NewCategoryPage";
 
 const AppRouter = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<DefaultLayout />}>
-          <Route path="/whatsapp/grupos" index element={<GroupListPage />} />
-          <Route path="/whatsapp/grupos/novo" element={<NewGroupPage />} />
-          <Route path="/whatsapp/grupos/:uuid" element={<NewGroupPage />}/>
-          <Route path="/whatsapp/categorias" element={<CategoryListPage />} />
-          <Route path="/whatsapp/categorias/novo" element={<NewCategoryPage />} />
-          <Route path="/whatsapp/categorias/:uuid" element={<NewCategoryPage/>} />
-          <Route path="/discord"element={< CategoryListPage/>} />
-          <Route path="/discord/nova"element={<NewCategoryPage />} />
+    <Routes>
+      <Route path="/" element={<DefaultLayout />}>
+        {/* Rotas para WhatsApp */}
+        <Route path="whatsapp">
+          <Route index element={<GroupListPage />} />
+          <Route path="grupos" element={<GroupListPage />} />
+          <Route path="grupos/novo" element={<NewGroupPage />} />
+          <Route path="grupos/:id" element={<NewGroupPage />} />
+          <Route path="categorias" element={<CategoryListPage />} />
+          <Route path="categorias/nova" element={<NewCategoryPage />} />
+          <Route path="categorias/:id" element={<NewCategoryPage />} />
         </Route>
-      </Routes>
-    </>
-  )
-}
+
+        {/* Rotas para outras seções, como Discord, Telegram, etc., se necessário */}
+      </Route>
+    </Routes>
+  );
+};
 
 export default AppRouter;

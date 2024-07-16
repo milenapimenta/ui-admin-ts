@@ -1,0 +1,19 @@
+.title {
+  margin-bottom: 48px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+}
+
+.input {
+  width: 48%;
+}
+
+.button {
+  display: flex;
+  justify-content: start;
+  margin-top: 32px;
+}

@@ -5,6 +5,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import TableComponent from '../TableComponent';
 import moment from 'moment';
 import ICategoriesProps from '../../interfaces/ICategoriesProps';
+import styles from './styles.module.css';
 
 const CategoryTable: React.FC<{ dataSource: ICategoriesProps[]; pagination: TableProps<ICategoriesProps>['pagination']; onDelete: (uuid: string) => Promise<void> }> = ({ dataSource, pagination, onDelete }) => {
   const columns: TableProps<ICategoriesProps>['columns'] = [
@@ -42,14 +43,17 @@ const CategoryTable: React.FC<{ dataSource: ICategoriesProps[]; pagination: Tabl
       title: 'Ações',
       key: 'action',
       render: (record) => {
-        const {uuid} = record;
+        const {id} = record;
         return (
           <Space size="middle">
-          <Link to="/">
-            <EditOutlined style={{ fontSize: '20px' }} />
+          <Link to={`${id}`}>
+            <EditOutlined className={styles.icon} />
           </Link>
-          <Button onClick={() => onDelete(uuid)}>
-            <DeleteOutlined style={{ fontSize: '20px', color: '#BD3E33' }} />
+          <Button
+            onClick={() => onDelete(id)}
+            type='text'
+          >
+            <DeleteOutlined className={styles.trashIcon} />
           </Button>
         </Space>
         )
@@ -60,7 +64,7 @@ const CategoryTable: React.FC<{ dataSource: ICategoriesProps[]; pagination: Tabl
   return (
     <TableComponent<ICategoriesProps>
       columns={columns}
-      dataSource={dataSource.map(user => ({ ...user, key: user.uuid }))}
+      dataSource={dataSource.map(category => ({ ...category, key: category.id }))}
       pagination={pagination}
     />
   );

@@ -1,6 +1,6 @@
 interface ICategoriesProps {
   key: React.Key;
-  uuid: string;
+  id: string;
   name: string;
   slug: string;
   groups_count: number;

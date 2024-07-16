@@ -3,36 +3,54 @@ import { Button, Space, TableProps, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import TableComponent from '../TableComponent';
-import IUsersProps from '../../interfaces/IUsersProps';
+import IGroupsProps from '../../interfaces/IGroupsProps';
 import moment from 'moment';
+import styles from './styles.module.css';
 
-const GroupTable: React.FC<{ dataSource: IUsersProps[]; pagination: TableProps<IUsersProps>['pagination']; onDelete: (uuid: string) => Promise<void>}> = ({ dataSource, pagination, onDelete}) => {
+const GroupTable:
+  React.FC<
+    {
+      dataSource: IGroupsProps[];
+      pagination: TableProps<IGroupsProps>['pagination'];
+      onDelete: (id: string) => Promise<void>
+    }
+  > = ({ dataSource, pagination, onDelete}) => {
+
   const columns: TableProps['columns'] = [
     {
       title: 'Nome',
       dataIndex: 'limited_name',
-      key: 'limited_name', // Chave única
-      onFilter: (value, record) => record.name.indexOf(value as string) === 0,
-      sorter: (a, b) => a.name.length - b.name.length,
+      key: 'limited_name',
+      onFilter:
+        (value, record) =>
+          record.name.indexOf(value as string) === 0,
+      sorter:
+        (a, b) =>
+          a.name.length - b.name.length,
       sortDirections: ['descend'],
     },
     {
       title: 'Username',
       dataIndex: 'username',
-      key: 'username', // Chave única
-      onFilter: (value, record) => record.username.indexOf(value as string) === 0,
-      sorter: (a, b) => a.username.length - b.username.length,
+      key: 'username',
+      onFilter:
+        (value, record) =>
+          record.username.indexOf(value as string) === 0,
+      sorter:
+        (a, b) =>
+          a.username.length - b.username.length,
       sortDirections: ['descend'],
     },
     {
       title: 'É premium?',
       dataIndex: 'is_premium',
-      key: 'is_premium', // Chave única
+      key: 'is_premium',
       onFilter: (value, record) => {
         const { is_premium } = record;
         if (value === false) {
           return is_premium === 'NÃO';
-        } else if (value === true) {
+        }
+        if (value === true) {
           return is_premium === 'SIM';
         }
         return false;
@@ -47,7 +65,14 @@ const GroupTable: React.FC<{ dataSource: IUsersProps[]; pagination: TableProps<I
         const borderColor = is_premium === false ? '#424347' : '#fc3a46';
         const tagText = is_premium === false ? 'NÃO' : 'SIM';
         return <Tag
-                  style={{backgroundColor: bgColor, borderColor: borderColor, fontWeight: 'bold'}}
+                  style=
+                  {
+                    {
+                      backgroundColor: bgColor,
+                      borderColor: borderColor,
+                      fontWeight: 'bold'
+                    }
+                  }
                   color={tagColor}
                 >
                   {tagText}
@@ -57,12 +82,13 @@ const GroupTable: React.FC<{ dataSource: IUsersProps[]; pagination: TableProps<I
     {
       title: 'É aberto?',
       dataIndex: 'is_open',
-      key: 'is_open', // Chave única
+      key: 'is_open',
       onFilter: (value, record) => {
         const { is_open } = record;
         if (value === true) {
           return is_open !== false;
-        } else if (value === false) {
+        }
+        if (value === false) {
           return is_open ===  true;
         }
         return false;
@@ -77,7 +103,14 @@ const GroupTable: React.FC<{ dataSource: IUsersProps[]; pagination: TableProps<I
         const borderColor = is_open === false ? '#424347' : 'green';
         const tagText = is_open ? 'SIM' : 'NÃO';
         return <Tag
-                  style={{backgroundColor: bgColor, borderColor: borderColor, fontWeight: 'bold'}}
+                  style=
+                  {
+                    {
+                      backgroundColor: bgColor,
+                      borderColor: borderColor,
+                      fontWeight: 'bold'
+                    }
+                  }
                   color={tagColor}
                 >
                   {tagText}
@@ -87,7 +120,7 @@ const GroupTable: React.FC<{ dataSource: IUsersProps[]; pagination: TableProps<I
     {
       title: 'Está ativo?',
       dataIndex: 'is_open',
-      key: 'is_open', // Chave única
+      key: 'is_open',
       onFilter: (value, record) => {
         const { is_open } = record;
         if (value === true) {
@@ -107,7 +140,14 @@ const GroupTable: React.FC<{ dataSource: IUsersProps[]; pagination: TableProps<I
         const borderColor = is_open === false ? '#424347' : 'green';
         const tagText = is_open ? 'SIM' : 'NÃO';
         return <Tag
-                  style={{backgroundColor: bgColor, borderColor: borderColor, fontWeight: 'bold'}}
+                  style=
+                  {
+                    {
+                      backgroundColor: bgColor,
+                      borderColor: borderColor,
+                      fontWeight: 'bold'
+                    }
+                  }
                   color={tagColor}
                 >
                   {tagText}
@@ -124,16 +164,17 @@ const GroupTable: React.FC<{ dataSource: IUsersProps[]; pagination: TableProps<I
       title: 'Ações',
       key: 'action', // Chave única
       render: (record) => {
-        const { uuid } = record;
+        const { id } = record;
         return (
           <Space size="middle">
-          <Link to={`/usuarios/${uuid}`}>
-            <EditOutlined style={{ fontSize: '20px' }} />
+          <Link to={`${id}`}>
+            <EditOutlined className={styles.icon} />
           </Link>
           <Button
-            onClick={() => onDelete(uuid)}
-            type='text'>
-            <DeleteOutlined style={{ fontSize: '20px', color: '#BD3E33' }} />
+            onClick={() => onDelete(id)}
+            type='text'
+          >
+            <DeleteOutlined className={styles.iconTrash} />
           </Button>
         </Space>
         )
@@ -142,9 +183,15 @@ const GroupTable: React.FC<{ dataSource: IUsersProps[]; pagination: TableProps<I
   ];
 
   return (
-    <TableComponent<IUsersProps>
+    <TableComponent<IGroupsProps>
       columns={columns}
-      dataSource={dataSource.map(user => ({ ...user, key: user.email }))}
+      dataSource={dataSource.map(group =>
+        (
+          {
+             ...group,
+            key: group.username
+          }
+        ))}
       pagination={pagination}
     />
   );
