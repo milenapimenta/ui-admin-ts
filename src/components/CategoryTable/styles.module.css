@@ -5,3 +5,12 @@
 .trashIcon, .icon {
   font-size: 20px;
 }
+
+.okButton {
+  background-color: #0E6EFD;
+}
+
+.cancelButton {
+  background-color: #BD3E33;
+  border: none;
+}

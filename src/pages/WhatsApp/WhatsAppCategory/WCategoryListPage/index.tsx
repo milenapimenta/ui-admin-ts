@@ -42,8 +42,6 @@ const WCategoryListPage: React.FC = () => {
   //     console.error("Failed to fetch Categories:", error);
   //   }
   // };
-
-
   const categoriesList = async () => {
     try {
       const res = await api.get('/categories/whatsapp/trending')
@@ -60,8 +58,6 @@ const WCategoryListPage: React.FC = () => {
   }, [pagination.page, pagination.perPage, searchValue]);
 
   const handleDelete = async (id: string) => {
-    const confirm = window.confirm('Deseja deletar a categoria?')
-    if (confirm) {
       try {
         const response = await api.delete(`categories/${id}`)
         if (response.status === 200) {
@@ -72,7 +68,6 @@ const WCategoryListPage: React.FC = () => {
         console.log(error)
       }
     }
-  }
 
   return (
     <>
