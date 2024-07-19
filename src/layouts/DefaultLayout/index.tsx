@@ -26,7 +26,7 @@ const DefaultLayout = () => {
 
   const items = [
     {
-      label: 'WhatsApp',
+      label: <div className={styles.menuLabel}>WhatsApp</div>,
       icon: <WhatsAppOutlined className={styles.icon} />,
       key: '/whatsapp',
       submenus: [
@@ -65,7 +65,7 @@ const DefaultLayout = () => {
       ],
     },
     {
-      label: 'Discord',
+      label:  <div className={styles.menuLabel}>Discord</div>,
       icon: <DiscordOutlined className={styles.icon} />,
       key: '/discord',
       submenus: [
@@ -104,7 +104,7 @@ const DefaultLayout = () => {
       ],
     },
     {
-      label: 'Telegram',
+      label:  <div className={styles.menuLabel}>Telegram</div>,
       icon: <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"

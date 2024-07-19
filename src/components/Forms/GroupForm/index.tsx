@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input} from 'antd';
 import IGroupFormProps from '../../../interfaces/IGroupFormProps';
 import ButtonComponent from '../../ButtonComponent';
+import styles from './styles.module.css';
 
 const GroupForm: React.FC<IGroupFormProps> =
   (
@@ -18,10 +19,10 @@ const GroupForm: React.FC<IGroupFormProps> =
           layout="vertical"
           onFinish={onSubmit}
         >
-          <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-            <div style={{ width: '49%' }}>
+          <div className={styles.form}>
+            <div className={styles.input}>
               <Form.Item
-                label="Nome"
+                label={<div className={styles.formItem}>Nome</div>}
                 name="name"
                 rules={[{ required: true, message: 'O campo nome é obrigatório!' }]}
                 valuePropName={initialValues?.name}
@@ -34,9 +35,9 @@ const GroupForm: React.FC<IGroupFormProps> =
               </Form.Item>
             </div>
 
-            <div style={{ width: '49%' }}>
+            <div className={styles.input}>
               <Form.Item
-                label="Username"
+                label={<div className={styles.formItem}>Username</div>}
                 name="username"
                 rules={[{ required: true, message: 'O campo username é obrigatório!' }]}
                 valuePropName={initialValues?.username}
@@ -51,7 +52,7 @@ const GroupForm: React.FC<IGroupFormProps> =
           </div>
 
           <Form.Item
-            label="Descrição"
+            label={<div className={styles.formItem}>Descrição</div>}
             name="email"
             rules={[{ required: true, message: 'O campo Descrição é obrigatório!' }]}
             valuePropName={initialValues?.description}

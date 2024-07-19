@@ -27,11 +27,16 @@
   overflow: auto !important;
 }
 
+.menuLabel {
+  color: #f0f2fa;
+  padding-left: 6px;
+}
+
 .menuItem {
   background-color:#171717 !important;
   color: #f0f2fa !important;
   text-align: start;
-  padding-left: 54px;
+  padding-left: 60px;
 }
 
 .menuItem:hover {
@@ -40,9 +45,10 @@
 
 .menuItemActive {
   background-color: #212529 !important;
+  color: #f0f2fa !important;
   font-weight: bold;
   text-align: start;
-  padding-left: 54px;
+  padding-left: 60px;
 }
 
 .btn {
@@ -66,4 +72,5 @@
 
 .icon {
   font-size: 20px !important;
+  color: #f0f2fa !important;
 }

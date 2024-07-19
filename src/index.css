@@ -2,7 +2,7 @@ body {
   margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6, p, span, th, tr {
+h1, h2, h3, h4, h5, h6, p, th, tr {
   color: #f0f2fa !important;
 }
 
@@ -26,4 +26,13 @@ input::placeholder {
 
 .ant-menu-submenu-arrow {
   color: white !important; /* Change arrow color to white */
+}
+
+.success-message {
+  background-color: #424347 !important;
+  color: #f0f2fa !important; /* cor verde para mensagem de sucesso */
+}
+
+.ant-popconfirm-title span {
+  color: #f0f2fa !important;
 }

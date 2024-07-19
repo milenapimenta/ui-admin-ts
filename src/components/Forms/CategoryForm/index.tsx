@@ -22,7 +22,7 @@ const CategoryForm: React.FC<ICategoryFormProps> =
         <div className={styles.form}>
             <div className={styles.input}>
               <Form.Item
-                label="Nome"
+                label={<div className={styles.formItem}>Nome</div>}
                 name="name"
                 rules={[{ required: true, message: 'O campo nome é obrigatório!' }]}
                 valuePropName={initialValues?.name}
@@ -37,7 +37,7 @@ const CategoryForm: React.FC<ICategoryFormProps> =
 
             <div style={{ width: '49%' }}>
               <Form.Item
-                label="Slug"
+                label={<div className={styles.formItem}>Slug</div>}
                 name="slug"
                 rules={[{ required: true,  message: 'O campo slug é obrigatório!'}]}
                 valuePropName={initialValues?.slug}
