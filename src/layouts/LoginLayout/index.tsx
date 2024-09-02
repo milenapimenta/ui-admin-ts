@@ -3,7 +3,7 @@ import { Content } from "antd/es/layout/layout"
 import { Outlet } from "react-router-dom"
 import styles from './styles.module.css'
 
-const LoginAndRegisterLayout = () => {
+const LoginLayout = () => {
   return (
     <Layout className={styles.layout}>
       <Content className={styles.content}>
@@ -13,4 +13,4 @@ const LoginAndRegisterLayout = () => {
   )
 }
 
-export default LoginAndRegisterLayout;
+export default LoginLayout;

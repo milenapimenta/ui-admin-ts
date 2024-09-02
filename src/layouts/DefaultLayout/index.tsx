@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   DiscordOutlined,
+  HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   WhatsAppOutlined,
@@ -8,7 +9,7 @@ import {
 import { Button, Layout, Menu, Typography } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import styles from './styles.module.css';
-import LoginAndRegisterLayout from '../LoginAndRegisterLayout';
+import LoginLayout from '../LoginLayout';
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
 
@@ -21,12 +22,12 @@ const DefaultLayout = () => {
     setCollapsed(!collapsed);
   };
 
-  const isAuthPage = pathname === '/login' || pathname === '/cadastro';
+  const isAuthPage = pathname === '/login';
 
   // Se for a página de login ou registro, renderiza um layout alternativo
   if (isAuthPage) {
     return (
-     <LoginAndRegisterLayout />
+     <LoginLayout />
     );
   }
 
@@ -35,6 +36,17 @@ const DefaultLayout = () => {
   };
 
   const items = [
+    {
+      label:
+          <div className= {
+            getIsActivePathname('/') ?
+            styles.menuItemActive : styles.menuItem
+          }>
+            <Link to='/'>Dashboard</Link>
+          </div>,
+      icon: <HomeOutlined className={styles.iconHome} />,
+      key: '/',
+    },
     {
       label: <div className={styles.menuLabel}>WhatsApp</div>,
       icon: <WhatsAppOutlined className={styles.icon} />,
@@ -171,18 +183,21 @@ const DefaultLayout = () => {
     .map(item => item.key);
 
   const openKeys = items
-    .filter(item => item.submenus.some(submenu => pathname.startsWith(submenu.key)))
+    .filter(item => item.submenus && item.submenus.some(submenu => pathname.startsWith(submenu.key)))
     .map(item => item.key);
 
   const generateMenuItems = (items: any) => {
-    return items.map((item: any) => ({
-      ...item,
-      children: item.submenus.map((submenu: any) => ({
-        ...submenu,
-        key: submenu.key.toString(),
-      })),
-      key: item.key.toString(),
-    }));
+    return items.map((item: any) => {
+      const { submenus, ...rest } = item;
+      return {
+        ...rest,
+        children: submenus ? submenus.map((submenu: any) => ({
+          ...submenu,
+          key: submenu.key.toString(),
+        })) : undefined,
+        key: item.key.toString(),
+      };
+    });
   };
 
   const menuItems = generateMenuItems(items);
@@ -207,7 +222,7 @@ const DefaultLayout = () => {
           className={styles.menu}
           mode="inline"
           selectedKeys={selectedKeys}
-          defaultSelectedKeys={['/whatsapp/grupos']}
+          defaultSelectedKeys={['/']}
           defaultOpenKeys={openKeys}
           items={menuItems}
         />

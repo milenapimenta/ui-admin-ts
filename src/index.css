@@ -23,6 +23,7 @@ input::placeholder {
 
 .ant-menu-item {
   padding: 0 !important;
+  background-color:#171717 !important;
 }
 
 .ant-menu-submenu-arrow {

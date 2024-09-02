@@ -13,12 +13,13 @@ import TNewGroupPage from "../pages/Telegram/TelegramGroup/TNewGroupPage";
 import TCategoryListPage from "../pages/Telegram/TelegramCategory/TCategoryListPage";
 import TNewCategoryPage from "../pages/Telegram/TelegramCategory/TNewCategoryPage";
 import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
+import DashboardPage from "../pages/DashboardPage";
 
 const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
+        <Route path="/" element={<DashboardPage />} />
         <Route path="whatsapp">
           <Route index element={<WGroupListPage />} />
           <Route path="grupos" element={<WGroupListPage />} />
@@ -47,7 +48,6 @@ const AppRouter = () => {
           <Route path="categorias/:id" element={<TNewCategoryPage />} />
         </Route>
         <Route path="login" element={<LoginPage />} />
-        <Route path="cadastro" element={<RegisterPage />} />
       </Route>
     </Routes>
   );
