@@ -8,6 +8,7 @@ import {
 import { Button, Layout, Menu, Typography } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import styles from './styles.module.css';
+import LoginAndRegisterLayout from '../LoginAndRegisterLayout';
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
 
@@ -19,6 +20,15 @@ const DefaultLayout = () => {
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
+
+  const isAuthPage = pathname === '/login' || pathname === '/cadastro';
+
+  // Se for a página de login ou registro, renderiza um layout alternativo
+  if (isAuthPage) {
+    return (
+     <LoginAndRegisterLayout />
+    );
+  }
 
   const getIsActivePathname = (activePathname: string) => {
     return pathname === activePathname || pathname.startsWith(activePathname + '/');

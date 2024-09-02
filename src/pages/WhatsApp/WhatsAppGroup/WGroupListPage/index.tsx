@@ -27,6 +27,7 @@ const WGroupListPage: React.FC = () => {
     try {
       const response = await api.get(`/groups?paginated=true`, { params: { page, perPage } });
       const { data, pagination: pages } = response.data;
+      console.log(response);
 
       setGroups(data);
       setPagination({

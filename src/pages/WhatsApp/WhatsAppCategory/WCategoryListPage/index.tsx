@@ -14,7 +14,7 @@ const WCategoryListPage: React.FC = () => {
   const [pagination, setPagination] = useState({
     total: 0,
     page: 1,
-    perPage: 10,
+    perPage: 8,
     lastPage: 1,
   });
   const [searchValue, setSearchValue] = useState('');
@@ -45,8 +45,7 @@ const WCategoryListPage: React.FC = () => {
   const categoriesList = async () => {
     try {
       const res = await api.get('/categories/whatsapp/trending')
-      console.log(res.data)
-      setCategories(res.data)
+      setCategories(res.data.rows)
     } catch (error) {
       console.log(error)
     }
@@ -78,6 +77,7 @@ const WCategoryListPage: React.FC = () => {
         </Link>
       </div>
       <Input
+        size='large'
         onChange={(e) => setSearchValue(e.target.value)}
         name="search"
         placeholder="Busque categoria por nome..."

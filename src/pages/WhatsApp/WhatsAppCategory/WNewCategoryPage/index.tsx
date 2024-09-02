@@ -36,6 +36,7 @@ const WNewCategoryPage = () => {
       if (!id) {
         const response = await api.post('/categories', category);
         setCategory(response.data);
+        console.log(response)
         return;
       }
 

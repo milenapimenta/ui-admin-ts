@@ -1,0 +1,6 @@
+.layout {
+  display: flex;
+  justify-content: center;
+  background-color:  #2b2c30 !important;
+  color: #f0f2fa !important;
+}

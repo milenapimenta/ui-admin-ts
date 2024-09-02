@@ -12,6 +12,8 @@ import TGroupListPage from "../pages/Telegram/TelegramGroup/TGroupListPage";
 import TNewGroupPage from "../pages/Telegram/TelegramGroup/TNewGroupPage";
 import TCategoryListPage from "../pages/Telegram/TelegramCategory/TCategoryListPage";
 import TNewCategoryPage from "../pages/Telegram/TelegramCategory/TNewCategoryPage";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 
 const AppRouter = () => {
   return (
@@ -44,6 +46,8 @@ const AppRouter = () => {
           <Route path="categorias/nova" element={<TNewCategoryPage />} />
           <Route path="categorias/:id" element={<TNewCategoryPage />} />
         </Route>
+        <Route path="login" element={<LoginPage />} />
+        <Route path="cadastro" element={<RegisterPage />} />
       </Route>
     </Routes>
   );
