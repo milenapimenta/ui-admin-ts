@@ -32,10 +32,6 @@
   padding-left: 6px;
 }
 
-.simpleMenuLabel {
-  padding-left: 6px !important;
-}
-
 .menuItem {
   background-color:#171717 !important;
   color: #f0f2fa !important;
@@ -83,6 +79,7 @@
   font-size: 20px !important;
   color: #f0f2fa !important;
   padding-left: 24px !important;
+  padding-right: 16px;
 }
 
 .iconHomeActive {
@@ -90,4 +87,17 @@
   font-size: 20px !important;
   color: #f0f2fa !important;
   padding-left: 24px !important;
+}
+
+.simpleMenuItem {
+  background-color:#171717 !important;
+  color: #f0f2fa !important;
+  text-align: start !important;
+}
+
+.simpleMenuItemActive {
+  background-color: #212529 !important;
+  color: #f0f2fa !important;
+  font-weight: bold;
+  text-align: start !important;
 }

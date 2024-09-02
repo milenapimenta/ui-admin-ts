@@ -56,6 +56,25 @@ input::placeholder {
 }
 
 .ant-pagination-item-active {
-  background-color: #424347 !important;
+  background-color: #212529 !important;
 }
 
+.ant-tabs-tab {
+  background-color: #212529 !important;
+  color: #f0f2fa !important;
+  border: 1px solid #424347 !important;
+}
+
+.ant-tabs-tab-active {
+  background-color: #424347 !important;
+  color: #0E6EFD !important;
+}
+
+.ant-tabs-nav::before {
+  border-color: #424347 !important;
+}
+
+.ant-tabs-content-holder {
+  color: #f0f2fa;
+  text-align: center;
+}

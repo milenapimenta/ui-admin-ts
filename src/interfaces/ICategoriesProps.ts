@@ -4,7 +4,7 @@ interface ICategoriesProps {
   name: string;
   slug: string;
   groups_count: number;
-  createdAt: string;
+  created_at: string;
 }
 
 export default ICategoriesProps;

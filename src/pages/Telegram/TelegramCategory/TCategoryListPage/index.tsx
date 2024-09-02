@@ -46,7 +46,7 @@ const TCategoryListPage: React.FC = () => {
 
   const categoriesList = async () => {
     try {
-      const res = await api.get('/categories/telegram/trending')
+      const res = await api.get('/categories/Telegram/trending')
       setCategories(res.data.rows)
     } catch (error) {
       console.log(error)

@@ -40,11 +40,11 @@ const DefaultLayout = () => {
       label:
           <div className= {
             getIsActivePathname('/') ?
-            styles.menuItemActive : styles.menuItem
+            styles.simpleMenuItemActive : styles.simpleMenuItem
           }>
+            <HomeOutlined className={styles.iconHome} />
             <Link to='/'>Dashboard</Link>
           </div>,
-      icon: <HomeOutlined className={styles.iconHome} />,
       key: '/',
     },
     {
