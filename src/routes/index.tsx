@@ -14,6 +14,7 @@ import TCategoryListPage from "../pages/Telegram/TelegramCategory/TCategoryListP
 import TNewCategoryPage from "../pages/Telegram/TelegramCategory/TNewCategoryPage";
 import LoginPage from "../pages/LoginPage";
 import DashboardPage from "../pages/DashboardPage";
+import UsersListPage from "../pages/Users/UsersListPage";
 
 const AppRouter = () => {
   return (
@@ -47,6 +48,7 @@ const AppRouter = () => {
           <Route path="categorias/nova" element={<TNewCategoryPage />} />
           <Route path="categorias/:id" element={<TNewCategoryPage />} />
         </Route>
+        <Route path="usuarios" element={<UsersListPage />} />
         <Route path="login" element={<LoginPage />} />
       </Route>
     </Routes>

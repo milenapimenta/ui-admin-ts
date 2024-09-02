@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Tabs, Typography } from "antd";
+import { Card, Col, Row, Tabs, Typography } from "antd";
 import api from "../../api";
 import ICategoriesProps from "../../interfaces/ICategoriesProps";
 import moment from "moment";
@@ -35,45 +35,74 @@ const DashboardPage = () => {
 
   return (
     <>
-      <Title level={3}>Dashboard</Title>
-      <Title className={styles.title} level={4}>Categorias</Title>
-      <Tabs type="card">
-        <Tabs.TabPane tab="Whatsapp" key="1">
-          <h1>Total: {whatsappCategories.length}</h1>
-          <h3>
-            Última categoria adicionada: {whatsappCategories[0]?.name || 'Nenhuma categoria'} {' '}
-          </h3>
-          <p>adicionada em: {moment(whatsappCategories[0]?.created_at).format('DD/MM/YYYY HH:mm:ss')}</p>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Discord" key="2">
-          <h1>Total: {discordCategories.length}</h1>
-          <h3>
-            Última categoria adicionada: {discordCategories[0]?.name || 'Nenhuma categoria'} {' '}
-          </h3>
-          <p>adicionada em: {moment(discordCategories[0]?.created_at).format('DD/MM/YYYY HH:mm:ss')}</p>
+      <Title className={styles.title} level={3}>Dashboard</Title>
+      <Row gutter={16}>
+        <Col span={8}>
+          <Card title="Categorias" bordered={false}>
+            <Tabs>
+              <Tabs.TabPane tab="Whatsapp" key="1">
+                <h1 className={styles.h0}>{whatsappCategories.length}</h1>
+                <h3>
+                  Última adicionada {whatsappCategories[0]?.name || 'Nenhuma categoria'} {' '}
+                </h3>
+                <p>Criada em {moment(whatsappCategories[0]?.created_at).format('DD/MM/YYYY HH:mm:ss')}</p>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="Discord" key="2">
+                <h1 className={styles.h0}>{discordCategories.length}</h1>
+                <h3>
+                  Última adicionada {discordCategories[0]?.name || 'Nenhuma categoria'} {' '}
+                </h3>
+                <p>Criada em {moment(discordCategories[0]?.created_at).format('DD/MM/YYYY HH:mm:ss')}</p>
 
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Telegram" key="3">
-          <h1>Total: {telegramCategories.length}</h1>
-          <h3>
-            Última categoria adicionada: {telegramCategories[0]?.name || 'Nenhuma categoria'} {' '}
-          </h3>
-          <p>adicionada em: {moment(telegramCategories[0]?.created_at).format('DD/MM/YYYY HH:mm:ss')}</p>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="Telegram" key="3">
+                <h1 className={styles.h0}>{telegramCategories.length}</h1>
+                <h3>
+                  Última adicionada: {telegramCategories[0]?.name || 'Nenhuma categoria'} {' '}
+                </h3>
+                <p>Criada em {moment(telegramCategories[0]?.created_at).format('DD/MM/YYYY HH:mm:ss')}</p>
 
-        </Tabs.TabPane>
-      </Tabs>
-      <Title className={styles.title} level={4}>Grupos</Title>
-      <Tabs type="card">
-        <Tabs.TabPane tab="Whatsapp" key="1">
-          Último grupo adicionado: {/* Implementar lógica para grupos */}
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Discord" key="2">
-          Último grupo adicionado: {/* Implementar lógica para grupos */}
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Telegram" key="3">
-          Último grupo adicionado: {/* Implementar lógica para grupos */}
-        </Tabs.TabPane>
-      </Tabs>
+              </Tabs.TabPane>
+            </Tabs>
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card title="Grupos" bordered={false}>
+            <Tabs>
+              <Tabs.TabPane tab="Whatsapp" key="1">
+                  <h1 className={styles.h0}>XX</h1>
+                  <h3>
+                    Último adicionado XXXXX
+                  </h3>
+                  <p>Criado em XX/XX/XX</p>
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="Discord" key="2">
+                  <h1 className={styles.h0}>XX</h1>
+                  <h3>
+                    Último adicionado XXXXX
+                  </h3>
+                  <p>Criado em XX/XX/XX</p>
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="Telegram" key="3">
+                  <h1 className={styles.h0}>XX</h1>
+                  <h3>
+                    Último adicionado XXXXX
+                  </h3>
+                  <p>Criado em XX/XX/XX</p>
+                </Tabs.TabPane>
+            </Tabs>
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card title="Usuários" bordered={false}>
+            <h1 className={styles.h0}>XX</h1>
+            <h3>
+              Último adicionado XXXXX
+            </h3>
+            <p>Criado em XX/XX/XX</p>
+          </Card>
+        </Col>
+      </Row>
     </>
   );
 };

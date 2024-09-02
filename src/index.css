@@ -60,13 +60,10 @@ input::placeholder {
 }
 
 .ant-tabs-tab {
-  background-color: #212529 !important;
   color: #f0f2fa !important;
-  border: 1px solid #424347 !important;
 }
 
 .ant-tabs-tab-active {
-  background-color: #424347 !important;
   color: #0E6EFD !important;
 }
 
@@ -76,5 +73,27 @@ input::placeholder {
 
 .ant-tabs-content-holder {
   color: #f0f2fa;
+  text-align: center;
+}
+
+.ant-card {
+  min-height: 340px;
+  background-color: #424347 !important;
+}
+
+.ant-card-head {
+  border: none !important;
+}
+
+.ant-card-head-title {
+  color: #f0f2fa;
+}
+
+.ant-card-body {
+  margin: 0 !important;
+  padding-left: 20px !important;
+  padding-right: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 20px !important;
   text-align: center;
 }

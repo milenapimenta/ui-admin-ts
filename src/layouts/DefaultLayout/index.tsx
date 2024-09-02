@@ -4,12 +4,14 @@ import {
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  UserOutlined,
   WhatsAppOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, Typography } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import styles from './styles.module.css';
 import LoginLayout from '../LoginLayout';
+
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
 
@@ -44,6 +46,17 @@ const DefaultLayout = () => {
           }>
             <HomeOutlined className={styles.iconHome} />
             <Link to='/'>Dashboard</Link>
+          </div>,
+      key: '/',
+    },
+    {
+      label:
+          <div className= {
+            getIsActivePathname('/usuarios') ?
+            styles.simpleMenuItemActive : styles.simpleMenuItem
+          }>
+            <UserOutlined className={styles.iconHome}/>
+            <Link to='/usuarios'>Usuários</Link>
           </div>,
       key: '/',
     },
