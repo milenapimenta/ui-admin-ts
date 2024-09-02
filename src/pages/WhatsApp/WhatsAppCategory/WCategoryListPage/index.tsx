@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Input, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ButtonComponent from '../../../../components/ButtonComponent';
-import CategoryTable from '../../../../components/CategoryTable'
+import CategoryTable from '../../../../components/Tables/CategoryTable'
 import api from '../../../../api';
 import ICategoriesProps from '../../../../interfaces/ICategoriesProps';
 

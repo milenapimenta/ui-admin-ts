@@ -3,7 +3,7 @@ import { Button, Space, TableProps, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import TableComponent from '../TableComponent';
-import IGroupsProps from '../../interfaces/IGroupsProps';
+import IGroupsProps from '../../../interfaces/IGroupsProps';
 import moment from 'moment';
 import styles from './styles.module.css';
 
@@ -68,6 +68,7 @@ const GroupTable:
                   style=
                   {
                     {
+                      color: '#f0f2fa',
                       backgroundColor: bgColor,
                       borderColor: borderColor,
                       fontWeight: 'bold'
@@ -106,6 +107,7 @@ const GroupTable:
                   style=
                   {
                     {
+                      color: '#f0f2fa',
                       backgroundColor: bgColor,
                       borderColor: borderColor,
                       fontWeight: 'bold'
@@ -143,6 +145,7 @@ const GroupTable:
                   style=
                   {
                     {
+                      color: '#f0f2fa',
                       backgroundColor: bgColor,
                       borderColor: borderColor,
                       fontWeight: 'bold'

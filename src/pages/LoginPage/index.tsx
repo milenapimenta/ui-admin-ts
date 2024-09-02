@@ -16,9 +16,9 @@ const LoginPage = () => {
     setError(null);
 
     try {
-      const response = await api.post('/auth/login', values);
+      const response = await api.post('/login', values);
       localStorage.setItem('token', response.data.token);
-      navigate('/categories'); // Redireciona para a página de categorias
+      navigate('/');
     } catch (error) {
       setError('Credenciais inválidas, tente novamente.');
     } finally {

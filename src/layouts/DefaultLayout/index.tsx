@@ -58,7 +58,7 @@ const DefaultLayout = () => {
             <UserOutlined className={styles.iconHome}/>
             <Link to='/usuarios'>Usuários</Link>
           </div>,
-      key: '/',
+      key: '/usuarios',
     },
     {
       label: <div className={styles.menuLabel}>WhatsApp</div>,

@@ -2,30 +2,30 @@ import React from 'react';
 import { Button, Space, TableProps, Popconfirm, message } from 'antd';
 import { Link } from 'react-router-dom';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import TableComponent from '../TableComponent';
 import moment from 'moment';
-import ICategoriesProps from '../../interfaces/ICategoriesProps';
+import IUsersProps from '../../../interfaces/IUserProps';
 import styles from './styles.module.css';
+import TableComponent from '../TableComponent';
 
-const CategoryTable: React.FC<{
-  dataSource: ICategoriesProps[];
-  pagination: TableProps<ICategoriesProps>['pagination'];
+const UserTable: React.FC<{
+  dataSource: IUsersProps[];
+  pagination: TableProps<IUsersProps>['pagination'];
   onDelete: (uuid: string) => Promise<void>;
 }> = ({ dataSource, pagination, onDelete }) => {
   const handleDelete = async (id: string) => {
     try {
       await onDelete(id);
-      message.success('Categoria deletada com sucesso.');
+      message.success('Usuário deletado com sucesso.');
     } catch (error) {
       console.log(error);
-      message.error('Falha ao deletar a categoria.');
+      message.error('Falha ao deletar usuário.');
     }
   };
 
   const okButtonProps = { className: styles.okButton }; // Define a classe CSS para o botão "Sim"
   const cancelButtonProps = { className: styles.cancelButton }; // Define a classe CSS para o botão "Não"
 
-  const columns: TableProps<ICategoriesProps>['columns'] = [
+  const columns: TableProps<IUsersProps>['columns'] = [
     {
       title: 'Nome',
       dataIndex: 'name',
@@ -35,19 +35,36 @@ const CategoryTable: React.FC<{
       sortDirections: ['descend'],
     },
     {
-      title: 'Slug',
-      dataIndex: 'slug',
-      key: 'slug',
-      onFilter: (value, record) => record.slug.indexOf(value as string) === 0,
-      sorter: (a, b) => a.slug.localeCompare(b.slug),
+      title: 'Sobrenome',
+      dataIndex: 'lastname',
+      key: 'lastname',
+      onFilter: (value, record) => record.lastname.indexOf(value as string) === 0,
+      sorter: (a, b) => a.lastname.localeCompare(b.lastname),
       sortDirections: ['descend'],
     },
     {
-      title: 'Total de grupos',
-      dataIndex: 'groups_count',
-      key: 'groups_count',
-      onFilter: (value, record) => record.groups_count === value,
-      sorter: (a, b) => a.groups_count - b.groups_count,
+      title: 'Idade',
+      dataIndex: 'age',
+      key: 'age',
+      onFilter: (value, record) => record.age === value,
+      sorter: (a, b) => a.age - b.age,
+      sortDirections: ['descend'],
+    },
+    {
+      title: 'Data de Nascimento',
+      dataIndex: 'date_birth',
+      key: 'date_birth',
+      render: (date_birth) => moment(date_birth).format('DD/MM/YYYY'),
+      onFilter: (value, record) => record.date_birth === value,
+      sorter: (a, b) => a.date_birth - b.date_birth,
+      sortDirections: ['descend'],
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      onFilter: (value, record) => record.email.indexOf(value as string) === 0,
+      sorter: (a, b) => a.email.localeCompare(b.email),
       sortDirections: ['descend'],
     },
     {
@@ -69,7 +86,7 @@ const CategoryTable: React.FC<{
             <Popconfirm
               title={
                       <span>
-                        {`Deseja deletar a categoria "${name}"?`}
+                        {`Deseja deletar o usuário "${name}"?`}
                       </span>
                     }
               okText="Sim"
@@ -91,12 +108,12 @@ const CategoryTable: React.FC<{
   ];
 
   return (
-    <TableComponent<ICategoriesProps>
+    <TableComponent<IUsersProps>
       columns={columns}
-      dataSource={dataSource.map((category) => ({ ...category, key: category.id }))}
+      dataSource={dataSource.map((user) => ({ ...user, key: user.id }))}
       pagination={pagination}
     />
   );
 };
 
-export default CategoryTable;
+export default UserTable;

@@ -19,7 +19,7 @@ const WNewCategoryPage = () => {
     slug: '',
   });
 
-  const getGroup = async () => {
+  const getCategory = async () => {
     try {
       const response = await api.get(`/categories/${id}`);
       setCategory(prevCategory => ({
@@ -58,7 +58,7 @@ const WNewCategoryPage = () => {
 
   useEffect(() => {
     if (id) {
-      getGroup();
+      getCategory();
     }
   }, [id]);
 

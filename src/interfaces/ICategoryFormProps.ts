@@ -4,6 +4,7 @@ interface ICategoryFormProps {
   initialValues?: {
     name: string;
     slug: string;
+    app_id?: number;
   };
 }
 

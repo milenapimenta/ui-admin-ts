@@ -5,7 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import ButtonComponent from '../../../../components/ButtonComponent';
 import api from '../../../../api';
 import styles from './styles.module.css';
-import GroupTable from '../../../../components/GroupTable';
+import GroupTable from '../../../../components/Tables/GroupTable';
 
 const { Title } = Typography;
 
@@ -14,7 +14,7 @@ const WGroupListPage: React.FC = () => {
   const [pagination, setPagination] = useState({
     total: 0,
     page: 1,
-    perPage: 10,
+    perPage: 8,
     lastPage: 1,
   });
   const [searchValue, setSearchValue] = useState('');
