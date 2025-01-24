@@ -20,10 +20,8 @@ const LoginPage = () => {
       const { token } = response.data;
 
       if (token) {
-        // Armazenando o token no localStorage
         localStorage.setItem('token', token);
 
-        // Fazendo a requisição para pegar os dados do usuário
         const userResponse = await api.get('/user', {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,11 +30,8 @@ const LoginPage = () => {
 
         const { name, email } = userResponse.data;
 
-        // Armazenando os dados do usuário no localStorage
         localStorage.setItem('username', name);
         localStorage.setItem('userEmail', email);
-
-        // Redirecionando o usuário para a página inicial
         navigate('/');
       } else {
         setError('Credenciais inválidas, tente novamente.');
