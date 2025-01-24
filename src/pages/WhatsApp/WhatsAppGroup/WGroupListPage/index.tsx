@@ -69,6 +69,7 @@ const WGroupListPage: React.FC = () => {
         onChange={(e) => setSearchValue(e.target.value)}
         name="search"
         placeholder="Busque grupo por X..."
+        className='input'
       />
       <GroupTable
         dataSource={groups}

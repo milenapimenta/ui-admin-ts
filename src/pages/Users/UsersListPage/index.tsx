@@ -44,11 +44,15 @@ const UsersListPage: React.FC = () => {
   // };
   const usersList = async () => {
     try {
-      const res = await api.get('/users');
-      console.log(res);
+      const token = localStorage.getItem('token');
+      const res = await api.get('/users', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setUsers(res.data.data);
     } catch (error) {
-      console.log(error);
+      console.error("Erro ao buscar usuários:", error);
     }
   };
 
@@ -82,6 +86,7 @@ const UsersListPage: React.FC = () => {
         onChange={(e) => setSearchValue(e.target.value)}
         name="search"
         placeholder="Busque usuário por nome..."
+        className='input'
       />
       <UserTable
         dataSource={users}

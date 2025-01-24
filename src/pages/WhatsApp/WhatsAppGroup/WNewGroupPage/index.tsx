@@ -37,10 +37,10 @@ const WNewGroupPage = () => {
     try {
       let response;
       if (id) {
-        response = await api.put(`/users/${id}`, group);
+        response = await api.put(`/groups/${id}`, group);
         setGroup(response.data);
       } else {
-        response = await api.post('/users', group);
+        response = await api.post('/groups', group);
         setGroup(response.data);
       }
       console.log("Request status:", response.status);

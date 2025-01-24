@@ -83,6 +83,7 @@ const TCategoryListPage: React.FC = () => {
         onChange={(e) => setSearchValue(e.target.value)}
         name="search"
         placeholder="Busque categoria por nome..."
+        className='input'
       />
       <CategoryTable
         dataSource={categories}

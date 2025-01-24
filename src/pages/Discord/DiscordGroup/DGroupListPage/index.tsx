@@ -68,6 +68,7 @@ const DGroupListPage: React.FC = () => {
         onChange={(e) => setSearchValue(e.target.value)}
         name="search"
         placeholder="Busque servidor por X..."
+        className='input'
       />
       <GroupTable
         dataSource={groups}

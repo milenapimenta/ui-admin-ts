@@ -97,3 +97,7 @@ input::placeholder {
   padding-bottom: 20px !important;
   text-align: center;
 }
+
+.input {
+  background-color: #212529 !important;
+}
