@@ -11,37 +11,6 @@ const { Title } = Typography;
 
 const UsersListPage: React.FC = () => {
   const [users, setUsers] = useState<IUserProps[]>([]);
-  const [pagination, setPagination] = useState({
-    total: 0,
-    page: 1,
-    perPage: 8,
-    lastPage: 1,
-  });
-  const [searchValue, setSearchValue] = useState('');
-
-  const handlePageChange = (newPage: number) => {
-    setPagination({ ...pagination, page: newPage });
-  };
-
-  // const getusers = async (page: number, perPage: number, name = '') => {
-  //   try {
-  //     const response = name
-  //       ? await api.get(`/users/${name}/name`, { params: { page, perPage } })
-  //       : await api.get(`/users`, { params: { page, perPage } });
-
-  //     const { data, pagination: pages } = response.data;
-
-  //     setusers(data);
-  //     setPagination({
-  //       total: pages.total,
-  //       page: pages.currentPage,
-  //       perPage: pages.perPage,
-  //       lastPage: pages.lastPage,
-  //     });
-  //   } catch (error) {
-  //     console.error("Failed to fetch users:", error);
-  //   }
-  // };
   const usersList = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -59,10 +28,9 @@ const UsersListPage: React.FC = () => {
 
   useEffect(() => {
     usersList()
-    // getusers(pagination.page, pagination.perPage, searchValue);
-  }, [pagination.page, pagination.perPage, searchValue]);
+  }, []);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
       try {
         const response = await api.delete(`users/${id}`)
         if (response.status === 200) {
@@ -84,20 +52,12 @@ const UsersListPage: React.FC = () => {
       </div>
       <Input
         size='large'
-        onChange={(e) => setSearchValue(e.target.value)}
         name="search"
         placeholder="Busque usuário por nome..."
         className='input'
       />
       <UserTable
         dataSource={users}
-        pagination={{
-          total: pagination.total,
-          current: pagination.page,
-          pageSize: pagination.perPage,
-          onChange: handlePageChange,
-          showSizeChanger: false,
-        }}
         onDelete={handleDelete}
       />
     </>

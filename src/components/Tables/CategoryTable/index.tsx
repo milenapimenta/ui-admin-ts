@@ -9,9 +9,9 @@ import styles from './styles.module.css';
 
 const CategoryTable: React.FC<{
   dataSource: ICategoriesProps[];
-  onDelete: (uuid: string) => Promise<void>;
+  onDelete: (id: number) => Promise<void>;
 }> = ({ dataSource, onDelete }) => {
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     try {
       await onDelete(id);
       message.success('Categoria deletada com sucesso.');
@@ -21,17 +21,25 @@ const CategoryTable: React.FC<{
     }
   };
 
-  const okButtonProps = { className: styles.okButton }; // Define a classe CSS para o botão "Sim"
-  const cancelButtonProps = { className: styles.cancelButton }; // Define a classe CSS para o botão "Não"
+  const okButtonProps = { className: styles.okButton };
+  const cancelButtonProps = { className: styles.cancelButton };
 
   const columns: TableProps<ICategoriesProps>['columns'] = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      onFilter: (value, record) => record.id === value,
+      sorter: (a, b) => (a.id || 0) - (b.id || 0),
+      sortDirections: ['descend'],
+    },
     {
       title: 'Nome',
       dataIndex: 'name',
       key: 'name',
       onFilter: (value, record) => record.name.indexOf(value as string) === 0,
       sorter: (a, b) => a.name.localeCompare(b.name),
-      sortDirections: ['descend'],
+      sortDirections: ['ascend'],
     },
     {
       title: 'Slug',
@@ -39,7 +47,7 @@ const CategoryTable: React.FC<{
       key: 'slug',
       onFilter: (value, record) => record.slug.indexOf(value as string) === 0,
       sorter: (a, b) => a.slug.localeCompare(b.slug),
-      sortDirections: ['descend'],
+      sortDirections: ['ascend'],
     },
     {
       title: 'Total de grupos',
@@ -47,13 +55,14 @@ const CategoryTable: React.FC<{
       key: 'groups_count',
       onFilter: (value, record) => record.groups_count === value,
       sorter: (a, b) => a.groups_count - b.groups_count,
-      sortDirections: ['descend'],
+      sortDirections: ['ascend'],
     },
-    {
+   {
       title: 'Criado em',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      render: (createdAt) => moment(createdAt).format('DD/MM/YYYY HH:mm'),
+      dataIndex: 'created_at',
+      key: 'created_at',
+      render: (created_at) => moment(created_at).format('DD/MM/YYYY HH:mm'),
+      sorter: (a, b) => moment(a.created_at).unix() - moment(b.created_at).unix(),
     },
     {
       title: 'Ações',
@@ -93,6 +102,7 @@ const CategoryTable: React.FC<{
     <TableComponent<ICategoriesProps>
       columns={columns}
       dataSource={dataSource.map((category) => ({ ...category, key: category.id }))}
+      pagination={{ defaultPageSize: 8, showSizeChanger: true, pageSizeOptions: ['10', '20', '40']}}
     />
   );
 };

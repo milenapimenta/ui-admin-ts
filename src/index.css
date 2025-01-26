@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color:  #2b2c30 !important;
+  background-color:  #1e1e1e !important;
 }
 
 h1, h2, h3, h4, h5, h6, p, th, tr {
@@ -40,7 +40,7 @@ input::placeholder {
 }
 
 .ant-pagination {
-  background-color: #212121!important;
+  background-color: #1e1e1e !important;
 }
 
 .ant-pagination-item a {
@@ -109,5 +109,19 @@ input::placeholder {
 }
 
 .ant-picker-suffix {
+  color: #f0f2fa !important;
+}
+
+.ant-select-selector {
+  background-color:  #212529 !important;
+  border-color: #424347 !important;
+  color: #f0f2fa !important;
+}
+
+.ant-table-column-sorter {
+  color: #f0f2fa !important;
+}
+
+.anticon-filter {
   color: #f0f2fa !important;
 }

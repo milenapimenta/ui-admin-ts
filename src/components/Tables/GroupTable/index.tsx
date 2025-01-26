@@ -20,37 +20,25 @@ const GroupTable:
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-      onFilter:
-        (value, record) =>
-          record.id.indexOf(value as string) === 0,
-      sorter:
-        (a, b) =>
-          a.id.length - b.id.length,
-      sortDirections: ['descend'],
+      onFilter: (value, record) => record.id === value,
+      sorter: (a, b) => (a.id || 0) - (b.id || 0),
+      sortDirections: ['ascend'],
     },
     {
       title: 'Nome',
       dataIndex: 'limited_name',
       key: 'limited_name',
-      onFilter:
-        (value, record) =>
-          record.name.indexOf(value as string) === 0,
-      sorter:
-        (a, b) =>
-          a.name.length - b.name.length,
-      sortDirections: ['descend'],
+      onFilter: (value, record) => record.name.indexOf(value as string) === 0,
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      sortDirections: ['ascend'],
     },
     {
       title: 'ID do usuário',
       dataIndex: 'user_id',
       key: 'user_id',
-      onFilter:
-        (value, record) =>
-          record.user_id.indexOf(value as string) === 0,
-      sorter:
-        (a, b) =>
-          a.user_id.length - b.user_id.length,
-      sortDirections: ['descend'],
+      onFilter: (value, record) => record.user_id === value,
+      sorter: (a, b) => (a.user_id || 0) - (b.user_id || 0),
+      sortDirections: ['ascend'],
     },
     {
       title: 'É premium?',
@@ -58,17 +46,14 @@ const GroupTable:
       key: 'is_premium',
       onFilter: (value, record) => {
         const { is_premium } = record;
-        if (value === false) {
-          return is_premium === 'NÃO';
-        }
         if (value === true) {
-          return is_premium === 'SIM';
+          return is_premium === true;
         }
-        return false;
+        return is_premium === false;
       },
       filters: [
-        { text: 'SIM', value: true },
-        { text: 'NÃO', value: false },
+        { text: 'Sim', value: true },
+        { text: 'Não', value: false },
       ],
       render: (is_premium) => {
         const tagColor = is_premium === false ? 'gray' : 'red';
@@ -98,16 +83,13 @@ const GroupTable:
       onFilter: (value, record) => {
         const { is_open } = record;
         if (value === true) {
-          return is_open !== false;
+          return is_open === true;
         }
-        if (value === false) {
-          return is_open ===  true;
-        }
-        return false;
+        return is_open === false;
       },
       filters: [
-        { text: 'Abertos', value: 'open' },
-        { text: 'Fechados', value: 'closed' },
+        { text: 'Sim', value: true },
+        { text: 'Não', value: false },
       ],
       render: (is_open) => {
         const tagColor = is_open ? 'green' : 'gray';
@@ -132,13 +114,14 @@ const GroupTable:
     },
     {
       title: 'Criado em',
-      dataIndex: 'createdAt',
-      key: 'createdAt', // Chave única
-      render: (createdAt) => moment(createdAt).format('DD/MM/YYYY HH:mm'),
+      dataIndex: 'created_at',
+      key: 'created_at',
+      render: (created_at) => moment(created_at).format('DD/MM/YYYY HH:mm'),
+      sorter: (a, b) => moment(a.created_at).unix() - moment(b.created_at).unix(),
     },
     {
       title: 'Ações',
-      key: 'action', // Chave única
+      key: 'action',
       render: (record) => {
         const { id } = record;
         return (
@@ -164,10 +147,11 @@ const GroupTable:
       dataSource={dataSource.map(group =>
         (
           {
-             ...group,
-            key: group.username
+            ...group,
+            key: group.id,
           }
         ))}
+      pagination={{ defaultPageSize: 8, showSizeChanger: true, pageSizeOptions: ['10', '20', '40']}}
     />
   );
 };

@@ -1,8 +1,8 @@
 interface IUserFormProps {
+  key?: React.Key;
   handleInputChange: (fieldName: string, value: string) => void;
   onSubmit: () => void;
   initialValues?: {
-    key?: React.Key;
     id?: string;
     name: string;
     lastname: string;

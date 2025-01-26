@@ -1,6 +1,6 @@
 interface ICategoriesProps {
   key: React.Key;
-  id: string;
+  id: number;
   name: string;
   slug: string;
   groups_count: number;

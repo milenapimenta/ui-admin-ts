@@ -1,6 +1,6 @@
 interface IUserProps {
   key?: React.Key;
-  id?: string;
+  id?: number;
   name: string;
   lastname: string;
   email: string;

@@ -6,14 +6,14 @@ import moment from 'moment';
 import IUsersProps from '../../../interfaces/IUserProps';
 import styles from './styles.module.css';
 import TableComponent from '../TableComponent';
-import IUserFormProps from '../../../interfaces/IUserFormProps';
+import IUserProps from '../../../interfaces/IUserProps';
 
 const UserTable: React.FC<{
   dataSource: IUsersProps[];
-  pagination: TableProps<IUsersProps>['pagination'];
-  onDelete: (uuid: string) => Promise<void>;
-}> = ({ dataSource, pagination, onDelete }) => {
-  const handleDelete = async (id: string) => {
+  onDelete: (id : number) => Promise<void>;
+  pagination?: TableProps<IUsersProps>['pagination'];
+}> = ({ dataSource, onDelete }) => {
+  const handleDelete = async (id: number) => {
     try {
       await onDelete(id);
       message.success('Usuário deletado com sucesso.');
@@ -23,20 +23,16 @@ const UserTable: React.FC<{
     }
   };
 
-  const okButtonProps = { className: styles.okButton }; // Define a classe CSS para o botão "Sim"
-  const cancelButtonProps = { className: styles.cancelButton }; // Define a classe CSS para o botão "Não"
+  const okButtonProps = { className: styles.okButton };
+  const cancelButtonProps = { className: styles.cancelButton };
 
   const columns: TableProps<IUsersProps>['columns'] = [
     {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-      onFilter:
-        (value, record) =>
-          record.id.indexOf(value as string) === 0,
-      sorter:
-        (a, b) =>
-          a.id.length - b.id.length,
+      onFilter: (value, record) => record.id === value,
+      sorter: (a, b) => (a.id || 0) - (b.id || 0),
       sortDirections: ['descend'],
     },
     {
@@ -60,7 +56,7 @@ const UserTable: React.FC<{
       dataIndex: 'age',
       key: 'age',
       onFilter: (value, record) => record.age === value,
-      sorter: (a, b) => a.age - b.age,
+      sorter: (a, b) => (a.age || 0) - (b.age || 0),
       sortDirections: ['descend'],
     },
     {
@@ -69,7 +65,7 @@ const UserTable: React.FC<{
       key: 'date_birth',
       render: (date_birth) => moment(date_birth).format('DD/MM/YYYY'),
       onFilter: (value, record) => record.date_birth === value,
-      sorter: (a, b) => a.date_birth - b.date_birth,
+      sorter: (a, b) => moment(a.date_birth).unix() - moment(b.date_birth).unix(),
       sortDirections: ['descend'],
     },
     {
@@ -82,9 +78,10 @@ const UserTable: React.FC<{
     },
     {
       title: 'Criado em',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      render: (createdAt) => moment(createdAt).format('DD/MM/YYYY HH:mm'),
+      dataIndex: 'created_at',
+      key: 'created_at',
+      render: (created_at) => moment(created_at).format('DD/MM/YYYY HH:mm'),
+      sorter: (a, b) => moment(a.created_at).unix() - moment(b.created_at).unix(),
     },
     {
       title: 'Ações',
@@ -121,10 +118,10 @@ const UserTable: React.FC<{
   ];
 
   return (
-    <TableComponent<IUserFormProps>
+    <TableComponent<IUserProps  & { key: React.Key }>
       columns={columns}
       dataSource={dataSource.map((user) => ({ ...user, key: user.id }))}
-      pagination={pagination}
+      pagination={{ defaultPageSize: 8, showSizeChanger: true, pageSizeOptions: ['10', '20', '40']}}
     />
   );
 };
