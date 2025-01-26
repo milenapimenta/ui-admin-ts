@@ -1,17 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import DefaultLayout from "../layouts/DefaultLayout";
-import WGroupListPage from "../pages/WhatsApp/WhatsAppGroup/WGroupListPage";
-import WNewGroupPage from "../pages/WhatsApp/WhatsAppGroup/WNewGroupPage";
-import WCategoryListPage from "../pages/WhatsApp/WhatsAppCategory/WCategoryListPage";
-import WNewCategoryPage from "../pages/WhatsApp/WhatsAppCategory/WNewCategoryPage";
-import DCategoryListPage from "../pages/Discord/DiscordCategory/DCategoryListPage";
-import DNewCategoryPage from "../pages/Discord/DiscordCategory/DNewCategoryPage";
-import DGroupListPage from "../pages/Discord/DiscordGroup/DGroupListPage";
-import DNewGroupPage from "../pages/Discord/DiscordGroup/DNewGroupPage";
-import TGroupListPage from "../pages/Telegram/TelegramGroup/TGroupListPage";
-import TNewGroupPage from "../pages/Telegram/TelegramGroup/TNewGroupPage";
-import TCategoryListPage from "../pages/Telegram/TelegramCategory/TCategoryListPage";
-import TNewCategoryPage from "../pages/Telegram/TelegramCategory/TNewCategoryPage";
+import WGroupListPage from "../pages/WhatsApp/WhatsAppGroups/WGroupsListPage";
+import WCreateGroupPage from "../pages/WhatsApp/WhatsAppGroups/WCreateGroupPage";
+import WCategoryListPage from "../pages/WhatsApp/WhatsAppCategories/WCategoriesListPage";
+import WCreateCategoryPage from "../pages/WhatsApp/WhatsAppCategories/WCreateCategoryPage";
+import DCategoriesListPage from "../pages/Discord/DiscordCategories/DCategoriesListPage";
+import DCreateCategoryPage from "../pages/Discord/DiscordCategories/DCreateCategoryPage";
+import DGroupsListPage from "../pages/Discord/DiscordGroups/DGroupsListPage";
+import DCreateGroupPage from "../pages/Discord/DiscordGroups/DCreateGroupPage";
+import TGroupsListPage from "../pages/Telegram/TelegramGroups/TGroupsListPage";
+import TCreateGroupPage from "../pages/Telegram/TelegramGroups/TCreateGroupPage";
+import TCategoriesListPage from "../pages/Telegram/TelegramCategories/TCategoriesListPage";
+import TCreateCategoryPage from "../pages/Telegram/TelegramCategories/TCreateCategoryPage";
 import LoginPage from "../pages/LoginPage";
 import UsersListPage from "../pages/Users/UsersListPage";
 import PrivateRoute from "../components/PrivateRoute";
@@ -25,29 +25,29 @@ const AppRouter = () => {
         <Route path="whatsapp">
           <Route index element={<WGroupListPage />} />
           <Route path="grupos" element={<WGroupListPage />} />
-          <Route path="grupos/novo" element={<PrivateRoute element={<WNewGroupPage />} />} />
-          <Route path="grupos/:id" element={<PrivateRoute element={<WNewGroupPage />} />} />
+          <Route path="grupos/novo" element={<PrivateRoute element={<WCreateGroupPage />} />} />
+          <Route path="grupos/:id" element={<PrivateRoute element={<WCreateGroupPage />} />} />
           <Route path="categorias" element={<WCategoryListPage />} />
-          <Route path="categorias/nova" element={<PrivateRoute element={<WNewCategoryPage />} />} />
-          <Route path="categorias/:id" element={<PrivateRoute element={<WNewCategoryPage />} />} />
+          <Route path="categorias/nova" element={<PrivateRoute element={<WCreateCategoryPage />} />} />
+          <Route path="categorias/:id" element={<PrivateRoute element={<WCreateCategoryPage />} />} />
         </Route>
         <Route path="discord">
-          <Route index element={<DGroupListPage />} />
-          <Route path="servidores" element={<DGroupListPage />} />
-          <Route path="servidores/novo" element={<PrivateRoute element={<DNewGroupPage />} />} />
-          <Route path="servidores/:id" element={<PrivateRoute element={<DNewGroupPage />} />} />
-          <Route path="categorias" element={<DCategoryListPage />} />
-          <Route path="categorias/nova" element={<PrivateRoute element={<DNewCategoryPage />} />} />
-          <Route path="categorias/:id" element={<PrivateRoute element={<DNewCategoryPage />} />} />
+          <Route index element={<DGroupsListPage />} />
+          <Route path="servidores" element={<DGroupsListPage />} />
+          <Route path="servidores/novo" element={<PrivateRoute element={<DCreateGroupPage />} />} />
+          <Route path="servidores/:id" element={<PrivateRoute element={<DCreateGroupPage />} />} />
+          <Route path="categorias" element={<DCategoriesListPage />} />
+          <Route path="categorias/nova" element={<PrivateRoute element={<DCreateCategoryPage />} />} />
+          <Route path="categorias/:id" element={<PrivateRoute element={<DCreateCategoryPage />} />} />
         </Route>
         <Route path="telegram">
-          <Route index element={<TGroupListPage />} />
-          <Route path="grupos" element={<TGroupListPage />} />
-          <Route path="grupos/novo" element={<PrivateRoute element={<TNewGroupPage />} />} />
-          <Route path="grupos/:id" element={<PrivateRoute element={<TNewGroupPage />} />} />
-          <Route path="categorias" element={<TCategoryListPage />} />
-          <Route path="categorias/nova" element={<PrivateRoute element={<TNewCategoryPage />} />} />
-          <Route path="categorias/:id" element={<PrivateRoute element={<TNewCategoryPage />} />} />
+          <Route index element={<TGroupsListPage />} />
+          <Route path="grupos" element={<TGroupsListPage />} />
+          <Route path="grupos/novo" element={<PrivateRoute element={<TCreateGroupPage />} />} />
+          <Route path="grupos/:id" element={<PrivateRoute element={<TCreateGroupPage />} />} />
+          <Route path="categorias" element={<TCategoriesListPage />} />
+          <Route path="categorias/nova" element={<PrivateRoute element={<TCreateCategoryPage />} />} />
+          <Route path="categorias/:id" element={<PrivateRoute element={<TCreateCategoryPage />} />} />
         </Route>
         <Route path="usuarios">
           <Route index element={<PrivateRoute element={<UsersListPage />} />} />

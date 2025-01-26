@@ -144,14 +144,7 @@ const GroupTable:
   return (
     <TableComponent<IGroupsProps>
       columns={columns}
-      dataSource={dataSource.map(group =>
-        (
-          {
-            ...group,
-            key: group.id,
-          }
-        ))}
-      pagination={{ defaultPageSize: 8, showSizeChanger: true, pageSizeOptions: ['10', '20', '40']}}
+      dataSource={dataSource.map((group, index) => ({...group, key: index}))}
     />
   );
 };

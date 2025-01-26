@@ -118,10 +118,9 @@ const UserTable: React.FC<{
   ];
 
   return (
-    <TableComponent<IUserProps  & { key: React.Key }>
+    <TableComponent<IUserProps>
       columns={columns}
-      dataSource={dataSource.map((user) => ({ ...user, key: user.id }))}
-      pagination={{ defaultPageSize: 8, showSizeChanger: true, pageSizeOptions: ['10', '20', '40']}}
+      dataSource={dataSource.map((user, index) => ({ ...user, key: index }))}
     />
   );
 };

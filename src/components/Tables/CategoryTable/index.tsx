@@ -57,7 +57,7 @@ const CategoryTable: React.FC<{
       sorter: (a, b) => a.groups_count - b.groups_count,
       sortDirections: ['ascend'],
     },
-   {
+    {
       title: 'Criado em',
       dataIndex: 'created_at',
       key: 'created_at',
@@ -101,8 +101,7 @@ const CategoryTable: React.FC<{
   return (
     <TableComponent<ICategoriesProps>
       columns={columns}
-      dataSource={dataSource.map((category) => ({ ...category, key: category.id }))}
-      pagination={{ defaultPageSize: 8, showSizeChanger: true, pageSizeOptions: ['10', '20', '40']}}
+      dataSource={dataSource.map((category, index) => ({ ...category, key: index }))}
     />
   );
 };
