@@ -11,37 +11,18 @@ const { Title } = Typography;
 
 const DGroupListPage: React.FC = () => {
   const [groups, setGroups] = useState<any>([]);
-  const [pagination, setPagination] = useState({
-    total: 0,
-    page: 1,
-    perPage: 8,
-    lastPage: 1,
-  });
-  const [searchValue, setSearchValue] = useState('');
-
-  const handlePageChange = (newPage: number) => {
-    setPagination({ ...pagination, page: newPage });
-  };
-
-  const getGroups = async (page: number, perPage: number) => {
+  const getGroups = async () => {
     try {
-      const response = await api.get(`/groups?paginated=true`, { params: { page, perPage } });
-      const { data, pagination: pages } = response.data;
+      const response = await api.get('/groups/app/discord');
 
-      setGroups(data);
-      setPagination({
-        total: pages.total,
-        page: pages.currentPage,
-        perPage: pages.perPage,
-        lastPage: pages.lastPage,
-      });
+      setGroups(response.data);
     } catch (error) {
       console.error("Failed to fetch serves:", error);
     }
   };
   useEffect(() => {
-    getGroups(pagination.page, pagination.perPage);
-  }, [pagination.page, pagination.perPage, searchValue]);
+    getGroups();
+  }, []);
 
   const handleDelete = async (id: string) => {
     try {
@@ -65,20 +46,12 @@ const DGroupListPage: React.FC = () => {
       </div>
       <Input
         size='large'
-        onChange={(e) => setSearchValue(e.target.value)}
         name="search"
         placeholder="Busque servidor por X..."
         className='input'
       />
       <GroupTable
         dataSource={groups}
-        pagination={{
-          total: pagination.total,
-          current: pagination.page,
-          pageSize: pagination.perPage,
-          onChange: handlePageChange,
-          showSizeChanger: false,
-        }}
         onDelete={handleDelete}
       />
     </>

@@ -11,38 +11,6 @@ const { Title } = Typography;
 
 const DCategoryListPage: React.FC = () => {
   const [categories, setCategories] = useState<ICategoriesProps[]>([]);
-  const [pagination, setPagination] = useState({
-    total: 0,
-    page: 1,
-    perPage: 8,
-    lastPage: 1,
-  });
-  const [searchValue, setSearchValue] = useState('');
-
-  const handlePageChange = (newPage: number) => {
-    setPagination({ ...pagination, page: newPage });
-  };
-
-  // const getCategories = async (page: number, perPage: number, name = '') => {
-  //   try {
-  //     const response = name
-  //       ? await api.get(`/categories/${name}/name`, { params: { page, perPage } })
-  //       : await api.get(`/categories`, { params: { page, perPage } });
-
-  //     const { data, pagination: pages } = response.data;
-
-  //     setCategories(data);
-  //     setPagination({
-  //       total: pages.total,
-  //       page: pages.currentPage,
-  //       perPage: pages.perPage,
-  //       lastPage: pages.lastPage,
-  //     });
-  //   } catch (error) {
-  //     console.error("Failed to fetch Categories:", error);
-  //   }
-  // };
-
 
   const categoriesList = async () => {
     try {
@@ -55,8 +23,7 @@ const DCategoryListPage: React.FC = () => {
 
   useEffect(() => {
     categoriesList()
-    // getCategories(pagination.page, pagination.perPage, searchValue);
-  }, [pagination.page, pagination.perPage, searchValue]);
+  }, []);
 
   const handleDelete = async (id: string) => {
     try {
@@ -80,20 +47,12 @@ const DCategoryListPage: React.FC = () => {
       </div>
       <Input
         size='large'
-        onChange={(e) => setSearchValue(e.target.value)}
         name="search"
         placeholder="Busque categoria por nome..."
         className='input'
       />
       <CategoryTable
         dataSource={categories}
-        pagination={{
-          total: pagination.total,
-          current: pagination.page,
-          pageSize: pagination.perPage,
-          onChange: handlePageChange,
-          showSizeChanger: false,
-        }}
         onDelete={handleDelete}
       />
     </>

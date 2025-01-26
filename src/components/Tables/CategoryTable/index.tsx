@@ -9,9 +9,8 @@ import styles from './styles.module.css';
 
 const CategoryTable: React.FC<{
   dataSource: ICategoriesProps[];
-  pagination: TableProps<ICategoriesProps>['pagination'];
   onDelete: (uuid: string) => Promise<void>;
-}> = ({ dataSource, pagination, onDelete }) => {
+}> = ({ dataSource, onDelete }) => {
   const handleDelete = async (id: string) => {
     try {
       await onDelete(id);
@@ -94,7 +93,6 @@ const CategoryTable: React.FC<{
     <TableComponent<ICategoriesProps>
       columns={columns}
       dataSource={dataSource.map((category) => ({ ...category, key: category.id }))}
-      pagination={pagination}
     />
   );
 };

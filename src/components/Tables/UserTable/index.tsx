@@ -6,6 +6,7 @@ import moment from 'moment';
 import IUsersProps from '../../../interfaces/IUserProps';
 import styles from './styles.module.css';
 import TableComponent from '../TableComponent';
+import IUserFormProps from '../../../interfaces/IUserFormProps';
 
 const UserTable: React.FC<{
   dataSource: IUsersProps[];
@@ -26,6 +27,18 @@ const UserTable: React.FC<{
   const cancelButtonProps = { className: styles.cancelButton }; // Define a classe CSS para o botão "Não"
 
   const columns: TableProps<IUsersProps>['columns'] = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      onFilter:
+        (value, record) =>
+          record.id.indexOf(value as string) === 0,
+      sorter:
+        (a, b) =>
+          a.id.length - b.id.length,
+      sortDirections: ['descend'],
+    },
     {
       title: 'Nome',
       dataIndex: 'name',
@@ -108,7 +121,7 @@ const UserTable: React.FC<{
   ];
 
   return (
-    <TableComponent<IUsersProps>
+    <TableComponent<IUserFormProps>
       columns={columns}
       dataSource={dataSource.map((user) => ({ ...user, key: user.id }))}
       pagination={pagination}

@@ -15,6 +15,7 @@ import TNewCategoryPage from "../pages/Telegram/TelegramCategory/TNewCategoryPag
 import LoginPage from "../pages/LoginPage";
 import UsersListPage from "../pages/Users/UsersListPage";
 import PrivateRoute from "../components/PrivateRoute";
+import NewUserPage from "../pages/Users/NewUserPage";
 
 const AppRouter = () => {
   return (
@@ -48,7 +49,11 @@ const AppRouter = () => {
           <Route path="categorias/nova" element={<PrivateRoute element={<TNewCategoryPage />} />} />
           <Route path="categorias/:id" element={<PrivateRoute element={<TNewCategoryPage />} />} />
         </Route>
-        <Route path="usuarios" element={<PrivateRoute element={<UsersListPage />} />} />
+        <Route path="usuarios">
+          <Route index element={<PrivateRoute element={<UsersListPage />} />} />
+          <Route path="novo" element={<PrivateRoute element={<NewUserPage />} />} />
+          <Route path=":id" element={<PrivateRoute element={<NewUserPage />} />} />
+        </Route>
         <Route path="login" element={<LoginPage />} />
       </Route>
     </Routes>

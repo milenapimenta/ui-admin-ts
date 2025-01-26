@@ -11,12 +11,23 @@ const GroupTable:
   React.FC<
     {
       dataSource: IGroupsProps[];
-      pagination: TableProps<IGroupsProps>['pagination'];
       onDelete: (id: string) => Promise<void>
     }
-  > = ({ dataSource, pagination, onDelete}) => {
+  > = ({ dataSource,  onDelete}) => {
 
   const columns: TableProps['columns'] = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      onFilter:
+        (value, record) =>
+          record.id.indexOf(value as string) === 0,
+      sorter:
+        (a, b) =>
+          a.id.length - b.id.length,
+      sortDirections: ['descend'],
+    },
     {
       title: 'Nome',
       dataIndex: 'limited_name',
@@ -30,15 +41,15 @@ const GroupTable:
       sortDirections: ['descend'],
     },
     {
-      title: 'Username',
-      dataIndex: 'username',
-      key: 'username',
+      title: 'ID do usuário',
+      dataIndex: 'user_id',
+      key: 'user_id',
       onFilter:
         (value, record) =>
-          record.username.indexOf(value as string) === 0,
+          record.user_id.indexOf(value as string) === 0,
       sorter:
         (a, b) =>
-          a.username.length - b.username.length,
+          a.user_id.length - b.user_id.length,
       sortDirections: ['descend'],
     },
     {
@@ -120,44 +131,6 @@ const GroupTable:
       },
     },
     {
-      title: 'Está ativo?',
-      dataIndex: 'is_open',
-      key: 'is_open',
-      onFilter: (value, record) => {
-        const { is_open } = record;
-        if (value === true) {
-          return is_open !== false;
-        } else if (value === false) {
-          return is_open ===  true;
-        }
-        return false;
-      },
-      filters: [
-        { text: 'Abertos', value: 'is_open' },
-        { text: 'Fechados', value: 'isnt_open' },
-      ],
-      render: (is_open) => {
-        const tagColor = is_open ? 'green' : 'gray';
-        const bgColor = is_open === false ? '#424347' : 'green';
-        const borderColor = is_open === false ? '#424347' : 'green';
-        const tagText = is_open ? 'SIM' : 'NÃO';
-        return <Tag
-                  style=
-                  {
-                    {
-                      color: '#f0f2fa',
-                      backgroundColor: bgColor,
-                      borderColor: borderColor,
-                      fontWeight: 'bold'
-                    }
-                  }
-                  color={tagColor}
-                >
-                  {tagText}
-                </Tag>;
-      },
-    },
-    {
       title: 'Criado em',
       dataIndex: 'createdAt',
       key: 'createdAt', // Chave única
@@ -195,7 +168,6 @@ const GroupTable:
             key: group.username
           }
         ))}
-      pagination={pagination}
     />
   );
 };

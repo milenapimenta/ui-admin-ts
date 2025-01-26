@@ -51,6 +51,7 @@ const UsersListPage: React.FC = () => {
         },
       });
       setUsers(res.data.data);
+      console.log(res.data.data)
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
     }
@@ -77,7 +78,7 @@ const UsersListPage: React.FC = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '26px' }}>
         <Title level={3}>Usuários</Title>
-        <Link to="nova">
+        <Link to="novo">
           <ButtonComponent icon={<PlusOutlined />} text="Novo usuário" />
         </Link>
       </div>

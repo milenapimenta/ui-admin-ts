@@ -28,10 +28,9 @@ const LoginPage = () => {
           },
         });
 
-        const { name, email } = userResponse.data;
+        const { name } = userResponse.data;
 
         localStorage.setItem('username', name);
-        localStorage.setItem('userEmail', email);
         navigate('/');
       } else {
         setError('Credenciais inválidas, tente novamente.');
