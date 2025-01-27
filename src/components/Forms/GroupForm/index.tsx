@@ -13,7 +13,6 @@ const GroupForm: React.FC<IGroupFormProps> =
     }
   ) => {
 
-    // Converte initialValues para o formato esperado pelo Ant Design (array de objetos)
     const safeInitialValues = [
       { name: ['name'], value: initialValues?.name || '' },
       { name: ['username'], value: initialValues?.username || '' },
@@ -25,11 +24,10 @@ const GroupForm: React.FC<IGroupFormProps> =
       <Form
         layout="vertical"
         onFinish={onSubmit}
-        fields={safeInitialValues}  // Passando os valores no formato correto para `fields`
+        fields={safeInitialValues}
         onFieldsChange={(_, allFields) => {
-          // Atualizando os valores dos campos conforme eles mudam
           allFields.forEach((field) => {
-            handleInputChange(field.name[0], field.value); // Passando nome e valor do campo
+            handleInputChange(field.name[0], field.value);
           });
         }}
       >

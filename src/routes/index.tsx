@@ -15,7 +15,7 @@ import TCreateCategoryPage from "../pages/Telegram/TelegramCategories/TCreateCat
 import LoginPage from "../pages/LoginPage";
 import UsersListPage from "../pages/Users/UsersListPage";
 import PrivateRoute from "../components/PrivateRoute";
-import NewUserPage from "../pages/Users/NewUserPage";
+import CreateUserPage from "../pages/Users/CreateUserPage";
 
 const AppRouter = () => {
   return (
@@ -51,8 +51,8 @@ const AppRouter = () => {
         </Route>
         <Route path="usuarios">
           <Route index element={<PrivateRoute element={<UsersListPage />} />} />
-          <Route path="novo" element={<PrivateRoute element={<NewUserPage />} />} />
-          <Route path=":id" element={<PrivateRoute element={<NewUserPage />} />} />
+          <Route path="novo" element={<PrivateRoute element={<CreateUserPage />} />} />
+          <Route path=":id" element={<PrivateRoute element={<CreateUserPage />} />} />
         </Route>
         <Route path="login" element={<LoginPage />} />
       </Route>

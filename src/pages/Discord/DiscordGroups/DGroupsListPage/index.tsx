@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Input, Typography } from 'antd';
+import { Input, Pagination, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ButtonComponent from '../../../../components/ButtonComponent';
 import api from '../../../../api';
@@ -11,24 +11,27 @@ const { Title } = Typography;
 
 const DGroupListPage: React.FC = () => {
   const [groups, setGroups] = useState<any>([]);
-  const getGroups = async () => {
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(8);
+  const getGroups = async (page: number, pageSize: number) => {
     try {
-      const response = await api.get('/groups/app/discord');
-
-      setGroups(response.data);
+      const response = await api.get(`/groups/app/discord/paginated?page=${page}&per_page=${pageSize}`)
+      setGroups(response.data.data)
+      setTotal(response.data.total)
     } catch (error) {
-      console.error("Failed to fetch serves:", error);
+      console.error("Failed to fetch groups:", error);
     }
   };
   useEffect(() => {
-    getGroups();
-  }, []);
+    getGroups(currentPage, pageSize);
+  }, [currentPage, pageSize]);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (uuid: string) => {
     try {
-      const response = await api.delete(`users/${id}`)
+      const response = await api.delete(`users/${uuid}`)
       if (response.status === 200) {
-        const newList = groups.filter((group: any) => group.id !== id)
+        const newList = groups.filter((group: any) => group.uuid !== uuid)
         setGroups(newList)
       }
     } catch (error) {
@@ -36,11 +39,16 @@ const DGroupListPage: React.FC = () => {
     }
   }
 
+  const onPageChange = (page: number, pageSize: number) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+  };
+
   return (
     <>
       <div className={styles.container}>
         <Title level={3}>Lista de Servidores</Title>
-        <Link to="/discord/servidores/novo">
+        <Link to="/discord/grupos/novo">
           <ButtonComponent icon={<PlusOutlined />} text="Novo Servidor" />
         </Link>
       </div>
@@ -53,6 +61,15 @@ const DGroupListPage: React.FC = () => {
       <GroupTable
         dataSource={groups}
         onDelete={handleDelete}
+      />
+      <Pagination
+        align="end"
+        current={currentPage}
+        pageSize={pageSize}
+        total={total}
+        onChange={onPageChange}
+        showSizeChanger
+        pageSizeOptions={['10', '15', '20', '30']}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Input, Typography } from 'antd';
+import { Input, Pagination, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ButtonComponent from '../../../components/ButtonComponent';
 import api from '../../../api';
@@ -11,15 +11,19 @@ const { Title } = Typography;
 
 const UsersListPage: React.FC = () => {
   const [users, setUsers] = useState<IUserProps[]>([]);
-  const usersList = async () => {
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(8);
+  const usersList = async (page: number, pageSize: number) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await api.get('/users', {
+      const res = await api.get(`/users?page=${page}&perPage=${pageSize}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setUsers(res.data.data);
+      setTotal(res.data.total);
       console.log(res.data.data)
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
@@ -27,8 +31,13 @@ const UsersListPage: React.FC = () => {
   };
 
   useEffect(() => {
-    usersList()
-  }, []);
+    usersList(currentPage, pageSize);
+  }, [currentPage, pageSize]);
+
+  const onPageChange = (page: number, pageSize: number) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+  };
 
   const handleDelete = async (id: number) => {
       try {
@@ -59,6 +68,15 @@ const UsersListPage: React.FC = () => {
       <UserTable
         dataSource={users}
         onDelete={handleDelete}
+      />
+      <Pagination
+        align="end"
+        current={currentPage}
+        pageSize={pageSize}
+        total={total}
+        onChange={onPageChange}
+        showSizeChanger
+        pageSizeOptions={['10', '15', '20', '30']}
       />
     </>
   );

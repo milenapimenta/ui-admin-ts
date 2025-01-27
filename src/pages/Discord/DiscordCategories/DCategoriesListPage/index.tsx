@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Input, Typography } from 'antd';
+import { Input, Typography, Pagination } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ButtonComponent from '../../../../components/ButtonComponent';
-import CategoryTable from '../../../../components/Tables/CategoryTable'
+import CategoryTable from '../../../../components/Tables/CategoryTable';
 import api from '../../../../api';
 import ICategoriesProps from '../../../../interfaces/ICategoriesProps';
 
@@ -11,31 +11,45 @@ const { Title } = Typography;
 
 const DCategoryListPage: React.FC = () => {
   const [categories, setCategories] = useState<ICategoriesProps[]>([]);
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(8);
+  const [search, setSearch] = useState('');
 
-  const categoriesList = async () => {
+  const categoriesList = async (page: number, pageSize: number, search: string) => {
     try {
-      const res = await api.get('/categories/Discord/trending')
-      setCategories(res.data.rows)
+      const res = await api.get(`/categories/Discord/trending/paginated?page=${page}&perPage=${pageSize}&search=${search}`);
+      setCategories(res.data.rows.data);
+      setTotal(res.data.rows.total);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    categoriesList()
-  }, []);
+    categoriesList(currentPage, pageSize, search);
+  }, [currentPage, pageSize, search]);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     try {
-      const response = await api.delete(`categories/${id}`)
+      const response = await api.delete(`categories/${id}`);
       if (response.status === 200) {
-        const newList = categories.filter((category) => category.id !== id)
-        setCategories(newList)
+        const newList = categories.filter((category) => category.id !== id);
+        setCategories(newList);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+
+  const onPageChange = (page: number, pageSize: number) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+  };
+
+  const handleSearch = (value: string) => {
+    setSearch(value);
+  };
 
   return (
     <>
@@ -50,14 +64,24 @@ const DCategoryListPage: React.FC = () => {
         name="search"
         placeholder="Busque categoria por nome..."
         className='input'
+        onChange={(e) => handleSearch(e.target.value)}
+        value={search}
       />
       <CategoryTable
         dataSource={categories}
         onDelete={handleDelete}
+      />
+      <Pagination
+        align="end"
+        current={currentPage}
+        pageSize={pageSize}
+        total={total}
+        onChange={onPageChange}
+        showSizeChanger
+        pageSizeOptions={['10', '15', '20', '30']}
       />
     </>
   );
 };
 
 export default DCategoryListPage;
-

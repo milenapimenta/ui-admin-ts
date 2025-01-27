@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Input, Typography } from 'antd';
+import { Input, Pagination, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ButtonComponent from '../../../../components/ButtonComponent';
 import api from '../../../../api';
@@ -11,19 +11,21 @@ const { Title } = Typography;
 
 const WGroupListPage: React.FC = () => {
   const [groups, setGroups] = useState<any>([]);
-  const getGroups = async () => {
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(8);
+  const getGroups = async (page: number, pageSize: number) => {
     try {
-      const response = await api.get('/groups/app/whatsapp')
-      console.log(response.data)
-
-      setGroups(response.data)
+      const response = await api.get(`/groups/app/whatsapp/paginated?page=${page}&per_page=${pageSize}`)
+      setGroups(response.data.data)
+      setTotal(response.data.total)
     } catch (error) {
-      console.error("Failed to fetch users:", error);
+      console.error("Failed to fetch groups:", error);
     }
   };
   useEffect(() => {
-    getGroups();
-  }, []);
+    getGroups(currentPage, pageSize);
+  }, [currentPage, pageSize]);
 
   const handleDelete = async (uuid: string) => {
     try {
@@ -36,6 +38,11 @@ const WGroupListPage: React.FC = () => {
       console.log(error)
     }
   }
+
+  const onPageChange = (page: number, pageSize: number) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+  };
 
   return (
     <>
@@ -54,6 +61,15 @@ const WGroupListPage: React.FC = () => {
       <GroupTable
         dataSource={groups}
         onDelete={handleDelete}
+      />
+      <Pagination
+        align="end"
+        current={currentPage}
+        pageSize={pageSize}
+        total={total}
+        onChange={onPageChange}
+        showSizeChanger
+        pageSizeOptions={['10', '15', '20', '30']}
       />
     </>
   );

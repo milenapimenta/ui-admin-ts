@@ -1,7 +1,7 @@
 import styles from './styles.module.css';
 import InputComponent from "../../InputComponent";
 import ButtonComponent from "../../ButtonComponent";
-import { Form } from "antd";
+import { Form, Select } from "antd";
 import ICategoryFormProps from '../../../interfaces/ICategoryFormProps.ts';
 
 const CategoryForm: React.FC<ICategoryFormProps> =
@@ -13,21 +13,20 @@ const CategoryForm: React.FC<ICategoryFormProps> =
     }
   ) => {
 
-  // Converte initialValues para o formato esperado pelo Ant Design (array de objetos)
   const safeInitialValues = [
     { name: ['name'], value: initialValues?.name || '' },
-    { name: ['slug'], value: initialValues?.slug || '' }
+    { name: ['slug'], value: initialValues?.slug || '' },
+    { name: ['app_id'], value: 1 }
   ];
 
   return (
     <Form
       layout="vertical"
       onFinish={onSubmit}
-      fields={safeInitialValues}  // Passando os valores no formato correto para `fields`
+      fields={safeInitialValues}
       onFieldsChange={(_, allFields) => {
-        // Atualizando os valores dos campos conforme eles mudam
         allFields.forEach((field) => {
-          handleInputChange(field.name[0], field.value); // Passando nome e valor do campo
+          handleInputChange(field.name[0], field.value);
         });
       }}
     >
@@ -40,22 +39,34 @@ const CategoryForm: React.FC<ICategoryFormProps> =
           >
             <InputComponent
               size="large"
-              onChange={(e) => handleInputChange('name', e.target.value)}  // Chama a função com nome e valor
-              value={initialValues?.name || ''}  // Garantindo que o valor inicial seja corretamente passado
+              onChange={(e) => handleInputChange('name', e.target.value)}
+              value={initialValues?.name || ''}
             />
           </Form.Item>
         </div>
 
-        <div style={{ width: '49%' }}>
+        <div style={{ width: '28%' }}>
           <Form.Item
             label={<div className={styles.formItem}>Slug</div>}
             name="slug"
-            rules={[{ required: true,  message: 'O campo slug é obrigatório!'}]}
           >
             <InputComponent
               size="large"
-              onChange={(e) => handleInputChange('slug', e.target.value)}  // Chama a função com nome e valor
-              value={initialValues?.slug || ''}  // Garantindo que o valor inicial seja corretamente passado
+              onChange={(e) => handleInputChange('slug', e.target.value)}
+              value={initialValues?.slug || ''}
+            />
+          </Form.Item>
+        </div>
+
+        <div style={{ width: '28%' }}>
+          <Form.Item
+            label={<div className={styles.formItem}>Aplicativo</div>}
+            name="app_id"
+          >
+            <Select
+              defaultValue="1"
+              disabled
+              options={[{ value: 1, label: 'WhatsApp' }]}
             />
           </Form.Item>
         </div>

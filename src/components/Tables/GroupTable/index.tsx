@@ -22,7 +22,7 @@ const GroupTable:
       key: 'id',
       onFilter: (value, record) => record.id === value,
       sorter: (a, b) => (a.id || 0) - (b.id || 0),
-      sortDirections: ['ascend'],
+      sortDirections: ['descend'],
     },
     {
       title: 'Nome',

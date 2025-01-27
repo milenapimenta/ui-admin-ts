@@ -11,7 +11,7 @@ function TableComponent<T extends { key: React.Key }>(props: ITableComponentProp
       className={styles.table}
       columns={columns}
       dataSource={dataSource.map((item : any) => ({ ...item, key: item.key }))}
-      pagination={{ defaultPageSize: 8, showSizeChanger: true, pageSizeOptions: ['10', '20', '40']}}
+      pagination={false}
     />
   );
 }
