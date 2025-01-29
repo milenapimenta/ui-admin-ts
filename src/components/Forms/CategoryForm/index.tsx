@@ -45,7 +45,7 @@ const CategoryForm: React.FC<ICategoryFormProps> =
           </Form.Item>
         </div>
 
-        <div style={{ width: '28%' }}>
+        <div className={styles.input}>
           <Form.Item
             label={<div className={styles.formItem}>Slug</div>}
             name="slug"
@@ -58,12 +58,13 @@ const CategoryForm: React.FC<ICategoryFormProps> =
           </Form.Item>
         </div>
 
-        <div style={{ width: '28%' }}>
+        <div className={styles.input}>
           <Form.Item
             label={<div className={styles.formItem}>Aplicativo</div>}
             name="app_id"
           >
             <Select
+              size='large'
               defaultValue="1"
               disabled
               options={[{ value: 1, label: 'WhatsApp' }]}

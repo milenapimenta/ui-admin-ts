@@ -1,23 +1,19 @@
-.title {
-  margin-bottom: 48px;
-}
-
 .form {
-  display: flex;
-  justify-content: space-between;
+  display: block;
   margin-top: 48px;
 }
 
-.formItem {
-  color: #f0f2fa !important;
-}
-
 .input {
-  width: 28%;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 .button {
   display: flex;
   justify-content: start;
   margin-top: 32px;
+}
+
+.formItem {
+  color: #f0f2fa !important;
 }

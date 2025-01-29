@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 
 interface IUserFormProps {
   key?: React.Key;
@@ -8,10 +9,10 @@ interface IUserFormProps {
     name: string;
     lastname: string;
     email: string;
-    date_birth: string;
+    date_birth: string | dayjs.Dayjs;
     created_at?: string;
     password: string;
-  }
+  };
 }
 
 export default IUserFormProps;
