@@ -15,10 +15,18 @@ const WCategoryListPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(8);
   const [search, setSearch] = useState('');
-
-  const categoriesList = async (page: number, pageSize: number, search: string) => {
+  const categoriesList = async (page: number, pageSize: number) => {
     try {
-      const res = await api.get(`/categories/Whatsapp/trending/paginated?page=${page}&perPage=${pageSize}&search=${search}`);
+      const res = await api.get(`/categories/Whatsapp/trending/paginated?page=${page}&perPage=${pageSize}`);
+      setCategories(res.data.rows.data);
+      setTotal(res.data.rows.total);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const searchCategories = async (page : number, pageSize: number, search: string) => {
+    try {
+      const res = await api.get(`/categories/Whatsapp/${search}/search/paginated?page=${page}&perPage=${pageSize}`);
       setCategories(res.data.rows.data);
       setTotal(res.data.rows.total);
     } catch (error) {
@@ -27,7 +35,11 @@ const WCategoryListPage: React.FC = () => {
   };
 
   useEffect(() => {
-    categoriesList(currentPage, pageSize, search);
+    if (search) {
+      searchCategories(currentPage, pageSize, search);
+    } else {
+      categoriesList(currentPage, pageSize);
+    }
   }, [currentPage, pageSize, search]);
 
   const handleDelete = async (id: number) => {
@@ -66,6 +78,11 @@ const WCategoryListPage: React.FC = () => {
         className='input'
         onChange={(e) => handleSearch(e.target.value)}
         value={search}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch(search);
+          }
+        }}
       />
       <CategoryTable
         dataSource={categories}
