@@ -1,7 +1,7 @@
 import styles from './styles.module.css';
 import InputComponent from "../../InputComponent";
 import ButtonComponent from "../../ButtonComponent";
-import { DatePicker, Form } from "antd";
+import { DatePicker, Form, Input } from "antd";
 import IUserFormProps from '../../../interfaces/IUserFormProps.ts';
 import dayjs from "dayjs";
 
@@ -87,7 +87,7 @@ const UserForm: React.FC<IUserFormProps> =
               name="password"
               rules={[{ required: true, message: 'O campo senha é obrigatório!' }]}
             >
-              <InputComponent
+              <Input.Password
                 size="large"
                 onChange={(e) => handleInputChange('password', e.target.value)}
                 value={initialValues?.password || ''}
@@ -105,7 +105,13 @@ const UserForm: React.FC<IUserFormProps> =
                 size='large'
                 style={{ width: '100%' }}
                 format="YYYY-MM-DD"
-                onChange={(date) => handleInputChange('date_birth', date ? date.format('YYYY-MM-DD') : '')}
+                onChange={(date) => {
+                  const formattedDate = date.format('YYYY-MM-DD');
+                  console.log(formattedDate);
+                  if (typeof date === 'string') {
+                    handleInputChange('date_birth', formattedDate);
+                  }
+                }}
                 value={initialValues?.date_birth ? dayjs(initialValues.date_birth, "YYYY-MM-DD") : null}
               />
             </Form.Item>

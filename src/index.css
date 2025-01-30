@@ -125,3 +125,13 @@ input::placeholder {
 .anticon-filter {
   color: #f0f2fa !important;
 }
+
+.ant-input-affix-wrapper {
+  background-color: #212529 !important;
+  border-color: #424347 !important;
+  color: #f0f2fa !important;
+}
+
+.anticon, .anticon-eye {
+  color: #f0f2fa !important;
+}
