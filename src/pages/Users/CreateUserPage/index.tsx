@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Typography } from "antd";
 import api from "../../../api";
-import IUserFormProps from "../../../interfaces/IUserFormProps";
+import IUserFormProps from '../../../interfaces/IUserFormProps';
 import UserForm from "../../../components/Forms/UserForm";
 import IUserProps from "../../../interfaces/IUserProps";
+import FormHeader from "../../../components/FormHeader";
 
 const NewUserPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { Title } = Typography;
 
   const [user, setUser] = useState<IUserProps>({
     name: '',
@@ -34,7 +33,7 @@ const NewUserPage = () => {
         console.log("Nenhum dado encontrado para o usuário.");
       }
 
-      console.log(response.data);  // Isso vai ajudar a verificar o que vem da API
+      console.log(response.data);
     } catch (error) {
       console.log("Error fetching user:", error);
     }
@@ -71,9 +70,7 @@ const NewUserPage = () => {
 
   return (
     <>
-      <Title style={{ marginBottom: '48px' }} level={3}>
-        {id ? 'Editar Usuário' : 'Novo Usuário'}
-      </Title>
+      <FormHeader title={id ? 'Editar usuário' : 'Criar usuário'} />
       <UserForm
         onSubmit={handleSubmit}
         handleInputChange={handleInputChange}

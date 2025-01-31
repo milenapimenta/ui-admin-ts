@@ -66,7 +66,9 @@ const WCategoryListPage: React.FC = () => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '26px' }}>
-        <Title level={3}>Categorias</Title>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Title  level={3}>Categorias</Title>
+        </div>
         <Link to="nova">
           <ButtonComponent icon={<PlusOutlined />} text="Nova Categoria" />
         </Link>

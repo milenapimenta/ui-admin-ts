@@ -8,3 +8,7 @@
 .span {
   padding-right: 8px;
 }
+
+.span svg {
+  fill: #1e1e1e !important;
+}

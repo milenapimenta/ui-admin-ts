@@ -48,7 +48,7 @@ const DGroupListPage: React.FC = () => {
     <>
       <div className={styles.container}>
         <Title level={3}>Lista de Servidores</Title>
-        <Link to="/discord/grupos/novo">
+        <Link to="novo">
           <ButtonComponent icon={<PlusOutlined />} text="Novo Servidor" />
         </Link>
       </div>

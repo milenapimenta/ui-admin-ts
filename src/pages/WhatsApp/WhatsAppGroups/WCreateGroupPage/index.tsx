@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import api from "../../../../api";
 import GroupForm from "../../../../components/Forms/GroupForm";
 import IGroupFormProps from "../../../../interfaces/IGroupFormProps";
-import { Typography } from "antd";
+import FormHeader from "../../../../components/FormHeader";
 
 type FieldType = {
   name: string;
@@ -13,7 +13,6 @@ type FieldType = {
 
 const WNewGroupPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { Title } = Typography;
 
   const [group, setGroup] = useState<FieldType>({
     name: '',
@@ -64,9 +63,7 @@ const WNewGroupPage = () => {
 
   return (
     <>
-      <Title style={{ marginBottom: '48px' }} level={3}>
-        {id ? 'Editar Grupo' : 'Novo Grupo'}
-      </Title>
+      <FormHeader title={id ? 'Editar Grupo' : 'Novo Grupo'} />
       <GroupForm
         onSubmit={handleSubmit}
         handleInputChange={handleInputChange}

@@ -3,7 +3,7 @@ import CategoryForm from "../../../../components/Forms/CategoryForm";
 import ICategoryFormProps from "../../../../interfaces/ICategoryFormProps";
 import { useParams } from "react-router-dom";
 import api from "../../../../api";
-import { Typography } from "antd";
+import FormHeader from "../../../../components/FormHeader";
 
 type FieldType = {
   name: string;
@@ -12,7 +12,6 @@ type FieldType = {
 
 const WNewCategoryPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { Title } = Typography;
 
   const [category, setCategory] = useState<FieldType>({
     name: '',
@@ -64,9 +63,7 @@ const WNewCategoryPage = () => {
 
   return (
     <>
-      <Title style={{ marginBottom: '48px' }} level={3}>
-        {id ? 'Editar Categoria' : 'Nova Categoria'}
-      </Title>
+      <FormHeader title={id ? 'Editar Categoria' : 'Nova Categoria'} />
       <CategoryForm
         onSubmit={handleSubmit}
         handleInputChange={handleInputChange}
