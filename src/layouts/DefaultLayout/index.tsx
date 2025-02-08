@@ -30,18 +30,11 @@ const DefaultLayout = () => {
 
   const items = [
     {
-      label: (
-        <div
-          className={
-            getIsActivePathname('/usuarios')
-              ? styles.simpleMenuItemActive
-              : styles.simpleMenuItem
-          }
-        >
-          <UserOutlined className={styles.simpleIcon} />
+      label:
+        <div className={styles.menuLabel}>
           <Link to="/usuarios">Usuários</Link>
-        </div>
-      ),
+        </div>,
+      icon: <UserOutlined />,
       key: '/usuarios',
     },
     {

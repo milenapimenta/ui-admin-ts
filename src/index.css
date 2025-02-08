@@ -26,6 +26,16 @@ input::placeholder {
   background-color:#171717 !important;
 }
 
+.ant-menu-item-selected, .ant-menu-item:hover {
+  background-color: #1e1e1e !important;
+  font-weight: bold;
+}
+
+.ant-menu-item span svg {
+  font-size: 22px !important;
+  margin-left: 26px !important;
+}
+
 .ant-menu-submenu-arrow {
   color: white !important; /* Change arrow color to white */
 }
@@ -134,4 +144,9 @@ input::placeholder {
 
 .anticon, .anticon-eye {
   color: #f0f2fa !important;
+}
+
+.ant-layout-sider-children {
+  margin: 0 !important;
+  padding: 0 !important;
 }
